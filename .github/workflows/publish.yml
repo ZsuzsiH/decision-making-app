@@ -24,16 +24,16 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
+        cache: 'npm'
 
-    - run: yarn
+    - run: npm i
 
-    - run: yarn add sass
+    - run: npm install sass
 
-    - run: yarn run build --if-present
+    - run: npm run build --if-present
 
     - name: Run the tests and generate coverage report
-      run: yarn run test -- --coverage
+      run: npm test -- --coverage
 
     - name: Codecov
       uses: codecov/codecov-action@v2.1.0
