@@ -1,13 +1,47 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+@font-face {
+  font-family: 'WorkSansRegular';
+  src: url('./resources/fonts/WorkSansRegular/WorkSansRegular.eot');
+  src: url('./resources/fonts/WorkSansRegular/WorkSansRegular.eot') format('embedded-opentype'),
+  url('./resources/fonts/WorkSansRegular/WorkSansRegular.woff2') format('woff2'),
+  url('./resources/fonts/WorkSansRegular/WorkSansRegular.woff') format('woff'),
+  url('./resources/fonts/WorkSansRegular/WorkSansRegular.ttf') format('truetype'),
+  url('./resources/fonts/WorkSansRegular/WorkSansRegular.svg#WorkSansRegular') format('svg');
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: 'WorkSansBold';
+  src: url('./resources/fonts/WorkSansBold/WorkSansBold.eot');
+  src: url('./resources/fonts/WorkSansBold/WorkSansBold.eot') format('embedded-opentype'),
+  url('./resources/fonts/WorkSansBold/WorkSansBold.woff2') format('woff2'),
+  url('./resources/fonts/WorkSansBold/WorkSansBold.woff') format('woff'),
+  url('./resources/fonts/WorkSansBold/WorkSansBold.ttf') format('truetype'),
+  url('./resources/fonts/WorkSansBold/WorkSansBold.svg#WorkSansBold') format('svg');
+}
+
+html {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'WorkSansRegular', sans-serif;
+  background-color: #e6e6e6;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+:root {
+  --color-primary: #9b9b7a;
+  --color-secondary: #d08c60;
+  --color-action: #797d62;
+  --color-light: #FDF4DC;
+  --color-dark: #997b66;
 }
