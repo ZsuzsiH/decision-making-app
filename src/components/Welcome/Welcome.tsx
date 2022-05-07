@@ -1,11 +1,11 @@
 import {TextField} from "@mui/material";
 import styles from './Welcome.module.scss';
-import React, {useEffect, useState} from "react";
-import { motion } from "framer-motion"
+import React, {useState} from "react";
 import IconButton from '@mui/material/IconButton';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import {setUserName} from "../../store/user/userAction";
 import {useDispatch} from "react-redux";
+import CustomMotionDiv from "../CustomMotionDiv/CustomMotionDiv";
 
 const Welcome = () => {
 
@@ -18,11 +18,7 @@ const Welcome = () => {
     }
 
     return (
-        <motion.div
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            transition={{ease: "easeIn", duration: 1}}
-            className={styles.welcome}>
+        <CustomMotionDiv className={styles.welcome}>
             <div>Welcome!</div>
             <div>What is your name?</div>
             <div className={styles.inputField}>
@@ -34,17 +30,12 @@ const Welcome = () => {
                     onChange={(e) => setName(() => e.target.value)}
                 />
             </div>
-            {name && <motion.div
-                initial={{opacity: 0}}
-                animate={{opacity: 1}}
-                transition={{ease: "easeIn", duration: 1}}
-                className={styles.control}
-            >
+            {name && <CustomMotionDiv className={styles.control}>
                 <IconButton className={styles.iconButton} onClick={saveName}>
                     <ArrowCircleRightIcon className={styles.icon}/>
                 </IconButton>
-            </motion.div>}
-        </motion.div>
+            </CustomMotionDiv>}
+        </CustomMotionDiv>
     )
 }
 

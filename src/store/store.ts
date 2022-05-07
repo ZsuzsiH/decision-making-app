@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
 import userReducer from "./user/userReducer";
 import {TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import appReducer from "./app/appReducer";
 
 const persistConfig = {
     key: 'reducer',
@@ -12,7 +13,8 @@ const persistConfig = {
  };
 
 const reducers = combineReducers({
-    user: userReducer
+    user: userReducer,
+    app: appReducer
 })
 
 export type RootState = ReturnType<typeof store.getState>;
