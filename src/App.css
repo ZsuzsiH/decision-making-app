@@ -1,7 +1,7 @@
 .App {
     align-items: center;
     justify-content: center;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     background: linear-gradient(-45deg, #baa587, #d9ae94, #f1dca7, #ffcb69);
     background-size: 400% 400%;

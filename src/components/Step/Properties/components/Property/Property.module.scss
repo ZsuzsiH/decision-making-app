@@ -1,0 +1,58 @@
+.propertyCard {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  height: 300px;
+  width: 300px;
+  background-color: var(--color-light);
+  padding: 20px;
+}
+
+.text {
+  font-size: 1.2em;
+  padding: 10px 0;
+}
+
+.customField {
+  width: 100%;
+}
+
+.customInput {
+  font-size: 1.5em !important;
+  color: var(--color-dark) !important;
+  font-family: 'IndieFlower', sans-serif !important;
+  > input {
+    padding: 0;
+  }
+}
+
+.slider {
+  margin: 0 !important;
+}
+
+.checkbox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.control {
+  height: 1em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px 0;
+  position: relative;
+  bottom: 20px;
+
+  > p {
+    font-size: 0.7em;
+  }
+}
+
+.controlIcon {
+  cursor: pointer;
+}
