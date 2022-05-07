@@ -1,0 +1,36 @@
+.welcome {
+  font-size: 3em;
+  color: var(--color-dark);
+  height: 500px;
+}
+
+.customField {
+  width: 100%;
+}
+
+.inputField {
+  padding: 10px 0;
+}
+
+.customInput {
+  font-size: 1em !important;
+  color: var(--color-dark) !important;
+  font-family: 'IndieFlower', sans-serif !important;
+}
+
+.iconButton {
+  padding: 0 !important;
+}
+
+.icon {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.control {
+  height: 1em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px 0;
+}

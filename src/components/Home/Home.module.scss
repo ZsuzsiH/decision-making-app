@@ -1,0 +1,8 @@
+.home {
+  height: calc(100% - var(--header-height));
+  width: 100%;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -18,12 +18,31 @@
   url('./resources/fonts/WorkSansBold/WorkSansBold.ttf') format('truetype'),
   url('./resources/fonts/WorkSansBold/WorkSansBold.svg#WorkSansBold') format('svg');
 }
+@font-face {
+  font-family: 'IconSolataVariable';
+  src: url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.eot');
+  src: url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.eot') format('embedded-opentype'),
+  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.woff2') format('woff2'),
+  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.woff') format('woff'),
+  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.ttf') format('truetype'),
+  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.svg#WorkSansRegular') format('svg');
+}
+
+@font-face {
+  font-family: 'IndieFlower';
+  src: url('./resources/fonts/IndieFlower/IndieFlowerRegular.eot');
+  src: url('./resources/fonts/IndieFlower/IndieFlowerRegular.eot') format('embedded-opentype'),
+  url('./resources/fonts/IndieFlower/IndieFlowerRegular.woff2') format('woff2'),
+  url('./resources/fonts/IndieFlower/IndieFlowerRegular.woff') format('woff'),
+  url('./resources/fonts/IndieFlower/IndieFlowerRegular.ttf') format('truetype'),
+  url('./resources/fonts/IndieFlower/IndieFlowerRegular.svg#WorkSansBold') format('svg');
+}
 
 html {
   margin: 0;
   height: 100%;
   width: 100%;
-  font-family: 'WorkSansRegular', sans-serif;
+  font-family: 'IconSolataVariable', sans-serif;
   background-color: #e6e6e6;
 }
 
@@ -43,5 +62,6 @@ body {
   --color-secondary: #d08c60;
   --color-action: #797d62;
   --color-light: #FDF4DC;
-  --color-dark: #997b66;
+  --color-dark: #4f3130;
+  --header-height: 50px;
 }
