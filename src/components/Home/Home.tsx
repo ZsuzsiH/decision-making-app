@@ -1,27 +1,24 @@
 import React from "react";
 import styles from './Home.module.scss';
-import Welcome from "../Welcome/Welcome";
-import { useAppSelector } from "../../store/store";
-import Intro from "../Intro/Intro";
+import Intro from "../Step/Intro/Intro";
+import Properties from "../Step/Properties/Properties";
+import {useAppSelector} from "../../store/store";
 
 const Home = () => {
 
-    const name = useAppSelector((state) => state.user.name);
-    const step = useAppSelector((state) => state.app.step);
+    const step = useAppSelector(state => state.app.step);
+
+    const components = {
+        'Intro': Intro,
+        'Properties': Properties
+    } as { [key: string]: () => JSX.Element };
 
     return(
         <div className={styles.home}>
-            {step === 0 &&
-                <React.Fragment>
-                    {!name && <Welcome/>}
-                    {name && <Intro name={name}/>}
-                </React.Fragment>
-            }
-            {step === 1 &&
-                <React.Fragment>
-
-                </React.Fragment>
-            }
+            {Object.keys(components).map((item: string, index: number) => {
+                const Component = components[item];
+                if (index === step) return <Component key={index}/>
+            })}
         </div>
     )
 }

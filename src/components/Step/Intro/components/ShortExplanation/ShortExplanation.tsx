@@ -1,17 +1,17 @@
-import styles from './Intro.module.scss';
+import styles from './ShortExplanation.module.scss';
 import React from "react";
 import { motion } from "framer-motion"
 import IconButton from "@mui/material/IconButton";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import {useDispatch} from "react-redux";
-import {setStep} from "../../store/app/appAction";
-import CustomMotionDiv from '../CustomMotionDiv/CustomMotionDiv';
+import {setStep} from "../../../../../store/app/appAction";
+import CustomMotionDiv from '../../../../CustomMotionDiv/CustomMotionDiv';
 
 interface IntroPRops {
     name: string;
 }
 
-const Intro = ({name}: IntroPRops) => {
+const ShortExplanation = ({name}: IntroPRops) => {
 
     const dispatch = useDispatch();
 
@@ -36,4 +36,4 @@ const Intro = ({name}: IntroPRops) => {
     )
 }
 
-export default Intro;
+export default ShortExplanation;
