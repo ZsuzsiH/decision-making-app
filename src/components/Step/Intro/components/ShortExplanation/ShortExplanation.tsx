@@ -1,6 +1,6 @@
-import styles from './ShortExplanation.module.scss';
 import React from "react";
-import { motion } from "framer-motion"
+import styles from './ShortExplanation.module.scss';
+import sharedStyles from "../../../../../styles/shared.module.scss";
 import IconButton from "@mui/material/IconButton";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import {useDispatch} from "react-redux";
@@ -20,15 +20,15 @@ const ShortExplanation = ({name}: IntroPRops) => {
     }
 
     return (
-        <CustomMotionDiv className={styles.intro}>
+        <CustomMotionDiv className={styles.introPage}>
             <CustomMotionDiv className={styles.paragraph}>Welcome {name}!</CustomMotionDiv>
             <CustomMotionDiv className={styles.paragraph} duration={1.4}>This is a simple tool to help you make decisions.</CustomMotionDiv>
             <CustomMotionDiv className={styles.paragraph} duration={1.8}>First you need to define the criteria on which you want to base your decision.</CustomMotionDiv>
             <CustomMotionDiv duration={2}>
                 <div className={styles.paragraph}>Are you ready?</div>
                 <div className={styles.control}>
-                    <IconButton className={styles.iconButton} onClick={proceedToNextStep}>
-                        <ArrowCircleRightIcon className={styles.icon}/>
+                    <IconButton className={sharedStyles.iconButton} onClick={proceedToNextStep}>
+                        Yes, let's do it <ArrowCircleRightIcon className={sharedStyles.icon}/>
                     </IconButton>
                 </div>
             </CustomMotionDiv>

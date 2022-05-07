@@ -1,5 +1,6 @@
 import {TextField} from "@mui/material";
 import styles from './Welcome.module.scss';
+import sharedStyles from '../../../../../styles/shared.module.scss';
 import React, {useState} from "react";
 import IconButton from '@mui/material/IconButton';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
@@ -18,23 +19,24 @@ const Welcome = () => {
     }
 
     return (
-        <CustomMotionDiv className={styles.welcome}>
+        <CustomMotionDiv className={styles.welcomePage}>
             <div>Welcome!</div>
             <div>What is your name?</div>
-            <div className={styles.inputField}>
+            <div className={styles.inputContainer}>
                 <TextField
-                    InputProps={{className: styles.customInput}}
+                    InputProps={{
+                        ...name && {
+                            endAdornment: <IconButton className={sharedStyles.iconButton} onClick={saveName}>
+                                <ArrowCircleRightIcon className={sharedStyles.icon}/>
+                            </IconButton>
+                        },
+                        className: styles.customInput}}
                     className={styles.customField}
                     variant="standard"
                     color={'secondary'}
                     onChange={(e) => setName(() => e.target.value)}
                 />
             </div>
-            {name && <CustomMotionDiv className={styles.control}>
-                <IconButton className={styles.iconButton} onClick={saveName}>
-                    <ArrowCircleRightIcon className={styles.icon}/>
-                </IconButton>
-            </CustomMotionDiv>}
         </CustomMotionDiv>
     )
 }

@@ -1,4 +1,6 @@
-.properties {
+@import "../../../styles/breakpoints.module";
+
+.propertiesPage {
   padding: 5% 0;
   min-height: 100%;
   margin: 0 auto;
@@ -11,20 +13,32 @@
   font-size: 3em;
   color: var(--color-dark);
   padding: 0 0 20px;
+  @media only screen and (max-width: $breakpoint-large) {
+    text-align: center;
+  }
 }
 
 .subtitle {
   font-size: 2em;
   color: var(--color-dark);
+  padding: 0 30px 0 0;
+
+  @media only screen and (max-width: $breakpoint-large) {
+    text-align: center;
+    padding: 20px 0;
+  }
 }
 
 .form {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
   padding: 20px 0;
+
+  @media only screen and (max-width: $breakpoint-large) {
+    justify-content: center;
+  }
 }
 
 .customInput {
@@ -51,10 +65,13 @@
 .propertyList {
   padding: 20px 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
+  @media only screen and (max-width: $breakpoint-large) {
+    justify-content: center;
+  }
 }
 
 .fieldIcon {
@@ -71,17 +88,19 @@
   cursor: pointer;
 }
 
+.button {
+  padding: 12px 20px;
+  border-radius: 10px;
+}
+
 .control {
   height: 1em;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 5px 0;
-}
+  position: relative;
 
-.controlIcon {
-  width: 2em !important;
-  height: 2em !important;
-  fill: var(--color-primary) !important;
-  cursor: pointer;
+  > p {
+    color: var(--color-dark)
+  }
 }
