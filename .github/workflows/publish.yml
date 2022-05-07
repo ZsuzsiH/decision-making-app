@@ -30,7 +30,7 @@ jobs:
 
     - run: npm install sass
 
-    - run: npm run build --if-present
+    - run: CI=false npm run build --if-present
 
     - name: Run the tests and generate coverage report
       run: npm test -- --coverage
