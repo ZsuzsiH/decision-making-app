@@ -5,7 +5,7 @@ export const SAVE_PROPERTY = "SAVE_PROPERTY";
 
 export interface IUserState {
     name?: string;
-    newFlow?: INewFlow;
+    flow?: INewFlow;
     decisionFlows: any[];
 }
 

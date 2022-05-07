@@ -14,9 +14,11 @@ import { IProperty } from "../../../store/user/userTypes";
 const Properties = () => {
 
     const dispatch = useDispatch();
+
+    const flow = useAppSelector((state) => state.user.flow);
+
     const [properties, setProperties] = useState<IProperty[]>([]);
     const [addNew, setAddNew] = useState<boolean>(false);
-    const newFlow = useAppSelector((state) => state.user.newFlow);
     const [name, setName] = useState<string>();
 
     const setFlowName = () => {
@@ -24,17 +26,26 @@ const Properties = () => {
         dispatch(startDecisionFlow(name));
     }
 
+    useEffect(() => {
+        if (!flow) return;
+        setName(() => flow.name);
+        setProperties(() => flow.properties);
+    }, [flow])
+
     const updateProperties = (property: IProperty) => {
         const updatedProperties = [...properties];
         const index = updatedProperties.findIndex(item => item.id === property?.id);
         if (index !== -1) updatedProperties[index] = property;
         else updatedProperties.push(property);
 
-        setProperties(() => (updatedProperties));
         setAddNew(() => false);
+        setProperties(() => (updatedProperties));
+        if (!name) return;
+        dispatch(saveDecisionFlow({name, properties: updatedProperties}));
     }
     const updateNewFlow = () => {
-        dispatch(saveDecisionFlow({name, properties}))
+        // if (!name) return;
+        // dispatch(saveDecisionFlow({name, properties}));
     }
 
     return(
@@ -50,6 +61,7 @@ const Properties = () => {
                                 <ArrowCircleRightIcon className={styles.fieldIcon} onClick={setFlowName}/>
                             )
                         }}
+                        value={name}
                         className={styles.customField}
                         variant="standard"
                         color={'secondary'}
@@ -57,10 +69,10 @@ const Properties = () => {
                     />
                 </div>
             </CustomMotionDiv>
-            {newFlow?.name && <CustomMotionDiv>
+            {flow?.name && <CustomMotionDiv>
                 <div className={styles.subtitle}>Now add some criteria</div>
                 <div className={styles.propertyList}>
-                    {properties && properties.length !== 0 && properties.map((property, index) => (
+                    {properties?.length !== 0 && properties.map((property, index) => (
                         <Property
                             key={index}
                             property={property}
@@ -77,9 +89,9 @@ const Properties = () => {
                 </div>
 
             </CustomMotionDiv>}
-            {newFlow?.properties && newFlow.properties.length >= 2 && <CustomMotionDiv className={styles.control}>
+            {properties?.length >= 2 && <CustomMotionDiv className={styles.control}>
                 <IconButton className={styles.iconButton} onClick={updateNewFlow}>
-                    <ArrowCircleRightIcon className={styles.icon}/>
+                    I'm ready <ArrowCircleRightIcon className={styles.controlIcon}/>
                 </IconButton>
             </CustomMotionDiv>}
         </CustomMotionDiv>

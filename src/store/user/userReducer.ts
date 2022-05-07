@@ -1,9 +1,9 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {IUserState, SET_NAME, START_FLOW, SAVE_FLOW, SAVE_PROPERTY} from "./userTypes";
+import {IUserState, SET_NAME, START_FLOW, SAVE_FLOW} from "./userTypes";
 
 const initialState: IUserState = {
     name: undefined,
-    newFlow: undefined,
+    flow: undefined,
     decisionFlows: []
 }
 
@@ -17,25 +17,16 @@ const userReducer = createReducer(initialState, {
     [START_FLOW]: (state, action) => {
         return {
             ...state,
-            newFlow: {
+            flow: {
                 name: action.payload,
                 properties: []
-            }
-        };
-    },
-    [SAVE_PROPERTY]: (state, action) => {
-        return {
-            ...state,
-            newFlow: {
-                name: action.payload.name,
-                properties: action.payload.properties
             }
         };
     },
     [SAVE_FLOW]: (state, action) => {
         return {
             ...state,
-            decisionFlows: state.decisionFlows.concat(action.payload)
+            flow: action.payload
         };
     },
 })
