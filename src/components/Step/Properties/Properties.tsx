@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import styles from "./Properties.module.scss";
 import CustomMotionDiv from "../../CustomMotionDiv/CustomMotionDiv";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import {TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {saveDecisionFlow, startDecisionFlow} from "../../../store/user/userAction";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
@@ -10,6 +10,7 @@ import {useAppSelector} from "../../../store/store";
 import Property from "./components/Property/Property";
 import IconButton from "@mui/material/IconButton";
 import { IProperty } from "../../../store/user/userTypes";
+import SaveIcon from "@mui/icons-material/Save";
 
 const Properties = () => {
 
@@ -49,11 +50,11 @@ const Properties = () => {
     }
 
     return(
-        <CustomMotionDiv className={styles.properties}>
+        <CustomMotionDiv className={styles.propertiesPage}>
             <div className={styles.title}>Now let's set some criteria. Don't worry about it too much, you can always come back to make some changes.</div>
             <CustomMotionDiv className={styles.form}>
                 <div className={styles.subtitle}>What will you name this decision flow?</div>
-                <div className={styles.inputField}>
+                <div>
                     <TextField
                         InputProps={{
                             className: styles.customInput,
@@ -62,7 +63,6 @@ const Properties = () => {
                             )
                         }}
                         value={name}
-                        className={styles.customField}
                         variant="standard"
                         color={'secondary'}
                         onChange={(e) => setName(() => e.target.value)}
@@ -90,9 +90,9 @@ const Properties = () => {
 
             </CustomMotionDiv>}
             {properties?.length >= 2 && <CustomMotionDiv className={styles.control}>
-                <IconButton className={styles.iconButton} onClick={updateNewFlow}>
-                    I'm ready <ArrowCircleRightIcon className={styles.controlIcon}/>
-                </IconButton>
+                <Button size={'large'} className={styles.button} onClick={updateNewFlow} variant="contained">
+                    Next
+                </Button>
             </CustomMotionDiv>}
         </CustomMotionDiv>
     )

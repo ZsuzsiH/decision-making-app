@@ -1,5 +1,5 @@
 import styles from './Property.module.scss';
-import {Slider, Stack, TextField} from "@mui/material";
+import {Button, Slider, Stack, TextField} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import Checkbox from '@mui/material/Checkbox';
 import SaveIcon from '@mui/icons-material/Save';
@@ -37,7 +37,6 @@ const Property = ({property, onSave}: PropertyProps) => {
                 <TextField
                     InputProps={{className: styles.customInput}}
                     value={propertyName}
-                    className={styles.customField}
                     variant={'standard'}
                     disabled={saved}
                     color={'secondary'}
@@ -65,11 +64,11 @@ const Property = ({property, onSave}: PropertyProps) => {
             </div>
             <div className={styles.control}>
                 { saved ?
-                    <IconButton className={styles.iconButton} onClick={() => setSaved(() => false)}>
+                    <IconButton onClick={() => setSaved(() => false)}>
                         <EditIcon color={'primary'} className={styles.controlIcon}/>
                     </IconButton>
                     :
-                    <IconButton className={styles.iconButton} onClick={() => setSaved(() => true)}>
+                    <IconButton disabled={!propertyName} onClick={() => setSaved(() => true)}>
                         <SaveIcon color={'primary'} className={styles.controlIcon}/>
                     </IconButton>
                 }
