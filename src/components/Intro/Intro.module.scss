@@ -1,5 +1,29 @@
 .intro {
   font-size: 3em;
   color: var(--color-dark);
-  height: 500px;
+  padding: 10% 0 0;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.paragraph {
+  padding: 10px 0;
+}
+
+// will need to separate
+.iconButton {
+  padding: 0 !important;
+}
+
+.icon {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.control {
+  height: 1em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px 0;
 }
