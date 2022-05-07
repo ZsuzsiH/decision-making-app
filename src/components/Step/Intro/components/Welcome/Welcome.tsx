@@ -3,9 +3,9 @@ import styles from './Welcome.module.scss';
 import React, {useState} from "react";
 import IconButton from '@mui/material/IconButton';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import {setUserName} from "../../store/user/userAction";
+import {setUserName} from "../../../../../store/user/userAction";
 import {useDispatch} from "react-redux";
-import CustomMotionDiv from "../CustomMotionDiv/CustomMotionDiv";
+import CustomMotionDiv from "../../../../CustomMotionDiv/CustomMotionDiv";
 
 const Welcome = () => {
 
