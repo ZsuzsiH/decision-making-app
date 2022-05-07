@@ -1,6 +1,6 @@
 import React from "react";
 
-const MainPage = () => {
+const Home = () => {
     return(
         <React.Fragment>
             <div>hello</div>
@@ -8,4 +8,4 @@ const MainPage = () => {
     )
 }
 
-export default MainPage;
+export default Home;

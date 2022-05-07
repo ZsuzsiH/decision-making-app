@@ -1,6 +1,11 @@
+import styles from './Header.module.scss';
+import React from "react";
+
 const Header = () => {
     return(
-        <div>hello</div>
+        <div className={styles.header}>
+            <div>Decision making made easy</div>
+        </div>
     )
 }
 
