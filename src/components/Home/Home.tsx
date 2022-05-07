@@ -10,7 +10,7 @@ const Home = () => {
 
     const components = {
         'Intro': Intro,
-        'Properties': Properties
+        'Properties': Properties,
     } as { [key: string]: () => JSX.Element };
 
     return(
