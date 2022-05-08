@@ -1,7 +1,6 @@
 export const SET_NAME = "SET_NAME";
 export const START_FLOW = "START_FLOW";
 export const SAVE_FLOW = "SAVE_FLOW";
-export const SAVE_PROPERTY = "SAVE_PROPERTY";
 
 export interface IUserState {
     name?: string;
@@ -12,6 +11,7 @@ export interface IUserState {
 export interface INewFlow {
     name: string;
     properties: IProperty[];
+    options: IOption[]
 }
 
 export interface IProperty {
@@ -21,6 +21,12 @@ export interface IProperty {
     inverted: boolean;
 }
 
-export interface IItem {
+export interface IOption {
+    id: number;
     name: string;
+    values: IValue;
+}
+
+export interface IValue {
+    [key: string]: number;
 }

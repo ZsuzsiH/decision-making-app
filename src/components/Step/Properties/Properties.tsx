@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styles from "./Properties.module.scss";
+import sharedStyles from "../../../styles/shared.module.scss";
 import CustomMotionDiv from "../../CustomMotionDiv/CustomMotionDiv";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {Button, TextField} from "@mui/material";
@@ -8,9 +9,8 @@ import {saveDecisionFlow, startDecisionFlow} from "../../../store/user/userActio
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import {useAppSelector} from "../../../store/store";
 import Property from "./components/Property/Property";
-import IconButton from "@mui/material/IconButton";
 import { IProperty } from "../../../store/user/userTypes";
-import SaveIcon from "@mui/icons-material/Save";
+import { setStep } from "../../../store/app/appAction";
 
 const Properties = () => {
 
@@ -44,14 +44,13 @@ const Properties = () => {
         if (!name) return;
         dispatch(saveDecisionFlow({name, properties: updatedProperties}));
     }
-    const updateNewFlow = () => {
-        // if (!name) return;
-        // dispatch(saveDecisionFlow({name, properties}));
+    const proceedToNextStep = () => {
+        dispatch(setStep(2))
     }
 
     return(
-        <CustomMotionDiv className={styles.propertiesPage}>
-            <div className={styles.title}>Now let's set some criteria. Don't worry about it too much, you can always come back to make some changes.</div>
+        <CustomMotionDiv className={sharedStyles.page}>
+            <div className={sharedStyles.title}>Now let's set some criteria. Don't worry about it too much, you can always come back to make some changes.</div>
             <CustomMotionDiv className={styles.form}>
                 <div className={styles.subtitle}>What will you name this decision flow?</div>
                 <div>
@@ -83,14 +82,14 @@ const Properties = () => {
                         property={{id: properties.length, name: '', weight: 0, inverted: false}}
                         onSave={updateProperties}
                     />}
-                    <CustomMotionDiv className={styles.addPropertyButton}>
+                    <CustomMotionDiv className={sharedStyles.addButton}>
                         <AddCircleIcon className={styles.addIcon} onClick={() => setAddNew(true)}/>
                     </CustomMotionDiv>
                 </div>
 
             </CustomMotionDiv>}
-            {properties?.length >= 2 && <CustomMotionDiv className={styles.control}>
-                <Button size={'large'} className={styles.button} onClick={updateNewFlow} variant="contained">
+            {flow && flow.properties?.length >= 2 && <CustomMotionDiv className={styles.control}>
+                <Button size={'large'} className={styles.button} onClick={proceedToNextStep} variant="contained">
                     Next
                 </Button>
             </CustomMotionDiv>}

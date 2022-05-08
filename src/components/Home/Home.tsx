@@ -2,6 +2,7 @@ import React from "react";
 import styles from './Home.module.scss';
 import Intro from "../Step/Intro/Intro";
 import Properties from "../Step/Properties/Properties";
+import Options from "../Step/Options/Options";
 import {useAppSelector} from "../../store/store";
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
     const components = {
         'Intro': Intro,
         'Properties': Properties,
+        'Options': Options
     } as { [key: string]: () => JSX.Element };
 
     return(
