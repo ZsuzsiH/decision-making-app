@@ -1,6 +1,6 @@
 import {useAppSelector} from "../../../store/store";
 import {useEffect, useState} from "react";
-import {IOption, IProperty, IValue} from "../../../store/user/userTypes";
+import {IOption, IOptionSummary, IProperty} from "../../../store/user/userTypes";
 
 const Result = () => {
 
@@ -8,6 +8,8 @@ const Result = () => {
     const [normWeightProps, setNormWeightProps] = useState<IProperty[]>();
     const [attributes, setAttributes] = useState<{ [key:string]: {min?: number, max?: number }}>();
     const [normalisedData, setNormalisedData] = useState<IOption[]>();
+    const [weightedData, setWeightedData] = useState<IOption[]>();
+    const [summary, setSummary] = useState<IOptionSummary[]>();
 
     useEffect(() => {
         /*
@@ -15,12 +17,11 @@ const Result = () => {
          */
         let sum: number = 0;
         if (!flow) return;
-        const normalizesProperties = [...flow.properties];
-        normalizesProperties.forEach(a => sum += a.weight);
-        setNormWeightProps(() => normalizesProperties.map(item => {
+        flow.properties.forEach(a => sum += a.weight);
+        setNormWeightProps(() => flow.properties.map(item => {
             return {
                 ...item,
-                weight: (item.weight/sum*100)
+                weight: (item.weight/sum)
             }
         }))
     }, [flow])
@@ -31,12 +32,11 @@ const Result = () => {
          */
         // return;
         if (!flow) return;
-        const normalizedAttributes = [...flow.properties];
-        const normalizedOptions = [...flow.options.map(option => option.values)];
-        const boundaries = normalizedAttributes.reduce((acc: {[key:string]: {}}, cur) => {
+        const options = [...flow.options.map(option => option.values)];
+        const boundaries = flow.properties.reduce((acc: {[key:string]: {}}, cur) => {
             acc[cur.name] = cur.inverted ?
-                {min: Math.min(...normalizedOptions.map(item => item[cur.name]))} :
-                {max: Math.max(...normalizedOptions.map(item => item[cur.name]))}
+                {min: Math.min(...options.map(item => item[cur.name]))} :
+                {max: Math.max(...options.map(item => item[cur.name]))}
             return acc;
         }, {});
 
@@ -48,23 +48,72 @@ const Result = () => {
             Data table normalisation
          */
         if (!flow || !attributes) return;
-        const normalizedData: IOption[] = [...flow.options];
         const attributeKeys = Object.keys(attributes);
 
-        const data = normalizedData.map((item) => {
+        const data = flow.options.map((item) => {
             const updatedOptions = attributeKeys.map(attribute => {
                 const min = attributes[attribute].min;
                 const max = attributes[attribute].max;
                 return  {[attribute]: min ? min/item.values[attribute] : max ? item.values[attribute]/max : 0}
             })
-            const updatedValues = Object.assign({}, ...updatedOptions)
+
             return {
                 ...item,
-                values: updatedValues
+                values: Object.assign({}, ...updatedOptions)
             }
         })
         setNormalisedData(() => data);
     }, [flow, attributes])
+
+    useEffect(() => {
+        /*
+            Multiplying each parameter with their respective weight
+         */
+
+        if (!normWeightProps) return;
+
+        const weightUpdatedData = normalisedData?.map((item) => {
+            const updatedValues = Object.keys(item.values).map(key => {
+                const prop = normWeightProps.find((item) => item.name === key);
+                if (!prop) return item.values;
+                return {
+                    [key]: item.values[key]*prop.weight
+                }
+            });
+
+            return {
+                ...item,
+                values: Object.assign({}, ...updatedValues)
+            }
+        })
+
+        setWeightedData(() => weightUpdatedData);
+
+    }, [normWeightProps, attributes, normalisedData])
+
+
+    useEffect(() => {
+        /*
+            Sum all values for each option
+         */
+
+        if (!weightedData) return;
+
+        const optionsSummary = weightedData?.map((item) => {
+            const sumValues = Object.values(item.values).reduce((a, b) => a + b);
+
+            return {
+                ...item,
+                valueSum: sumValues
+            }
+        })
+
+        setSummary(() => optionsSummary);
+    }, [weightedData])
+
+    useEffect(() => {
+        console.log('summary', summary)
+    }, [summary])
 
     return (
         <div>
