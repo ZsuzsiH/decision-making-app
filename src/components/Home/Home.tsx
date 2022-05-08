@@ -4,6 +4,7 @@ import Intro from "../Step/Intro/Intro";
 import Properties from "../Step/Properties/Properties";
 import Options from "../Step/Options/Options";
 import {useAppSelector} from "../../store/store";
+import Result from "../Step/Result/Result";
 
 const Home = () => {
 
@@ -12,7 +13,8 @@ const Home = () => {
     const components = {
         'Intro': Intro,
         'Properties': Properties,
-        'Options': Options
+        'Options': Options,
+        'Result': Result
     } as { [key: string]: () => JSX.Element };
 
     return(

@@ -27,6 +27,10 @@ export interface IOption {
     values: IValue;
 }
 
+export interface IOptionSummary extends IOption {
+    valueSum: number
+}
+
 export interface IValue {
     [key: string]: number;
 }
