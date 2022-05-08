@@ -3,6 +3,7 @@ import {IProperty} from "../../../../../store/user/userTypes";
 import styles from './NodeType.module.scss';
 import {Slider} from "@mui/material";
 import sharedStyles from "../../../../../styles/shared.module.scss";
+import {Handle, Position} from 'react-flow-renderer';
 
 interface PropertyNodeTypeProps {
     data: IProperty
@@ -15,6 +16,12 @@ const PropertyNodeType = ({data}: PropertyNodeTypeProps) => {
             <hr/>
             <div className={sharedStyles.text}>Weighting: {data.weight}%</div>
             <Slider className={sharedStyles.slider} defaultValue={0} value={data.weight} />
+            <Handle
+                type="source"
+                position={Position.Bottom}
+                id={`property-${data.id}`}
+                style={{ top: 'auto', bottom: -5, background: 'var(--color-secondary)', height: '10px', width: '10px' }}
+            />
         </div>
     );
 }

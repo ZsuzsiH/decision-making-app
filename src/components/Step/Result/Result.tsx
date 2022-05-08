@@ -65,7 +65,6 @@ const Result = () => {
                 values: Object.assign({}, ...updatedOptions)
             };
         })
-        console.log('data', data)
         setNormalisedData(() => data);
     }, [flow, attributes]);
 
@@ -127,7 +126,7 @@ const Result = () => {
     }
 
     return (
-        <div style={{width: '1000px', height: '1000px'}}>
+        <div style={{width: '1500px', height: '1500px'}}>
             <FlowChart properties={flow.properties} normalisedData={normalisedData} summary={summary} winner={winner}/>
         </div>
     )
