@@ -10,6 +10,7 @@ const Result = () => {
     const [normalisedData, setNormalisedData] = useState<IOption[]>();
     const [weightedData, setWeightedData] = useState<IOption[]>();
     const [summary, setSummary] = useState<IOptionSummary[]>();
+    const [winner, setWinner] = useState<IOptionSummary>();
 
     useEffect(() => {
         /*
@@ -22,9 +23,9 @@ const Result = () => {
             return {
                 ...item,
                 weight: (item.weight/sum)
-            }
-        }))
-    }, [flow])
+            };
+        }));
+    }, [flow]);
 
     useEffect(() => {
         /*
@@ -41,7 +42,7 @@ const Result = () => {
         }, {});
 
         setAttributes(() => boundaries);
-    }, [flow])
+    }, [flow]);
 
     useEffect(() => {
         /*
@@ -55,15 +56,15 @@ const Result = () => {
                 const min = attributes[attribute].min;
                 const max = attributes[attribute].max;
                 return  {[attribute]: min ? min/item.values[attribute] : max ? item.values[attribute]/max : 0}
-            })
+            });
 
             return {
                 ...item,
                 values: Object.assign({}, ...updatedOptions)
-            }
+            };
         })
         setNormalisedData(() => data);
-    }, [flow, attributes])
+    }, [flow, attributes]);
 
     useEffect(() => {
         /*
@@ -89,8 +90,7 @@ const Result = () => {
 
         setWeightedData(() => weightUpdatedData);
 
-    }, [normWeightProps, attributes, normalisedData])
-
+    }, [normWeightProps, normalisedData]);
 
     useEffect(() => {
         /*
@@ -101,18 +101,20 @@ const Result = () => {
 
         const optionsSummary = weightedData?.map((item) => {
             const sumValues = Object.values(item.values).reduce((a, b) => a + b);
-
-            return {
-                ...item,
-                valueSum: sumValues
-            }
+            return {...item, valueSum: sumValues};
         })
 
         setSummary(() => optionsSummary);
-    }, [weightedData])
+    }, [weightedData]);
 
     useEffect(() => {
-        console.log('summary', summary)
+        /*
+            Find the winner
+         */
+        if (!summary) return;
+        const max = Math.max.apply(Math, summary.map((option) =>  option.valueSum ));
+        const winner = summary.find(item => item.valueSum === max);
+        setWinner(() => winner);
     }, [summary])
 
     return (
