@@ -19,7 +19,7 @@ const OptionNodeType = ({data}: OptionNodeTypeProps) => {
                 type="target"
                 position={Position.Top}
                 id={`option-${data.option.id}-target`}
-                style={{ top: 'auto', bottom: -5, background: 'var(--color-secondary)', height: '10px', width: '10px' }}
+                style={{ top: 0, bottom: 'auto', background: 'var(--color-secondary)', height: '10px', width: '10px' }}
             />
             <div className={sharedStyles.text}>{data?.option?.name}</div>
             <hr/>
@@ -27,7 +27,7 @@ const OptionNodeType = ({data}: OptionNodeTypeProps) => {
                 return (
                     <React.Fragment key={index}>
                         <div className={sharedStyles.text}>{key}: {Math.round(value*100)}%</div>
-                        <Slider className={sharedStyles.slider} defaultValue={0} value={value*100} />
+                        <Slider className={sharedStyles.slider} disabled={true} defaultValue={0} value={value*100} />
                     </React.Fragment>
                 )
             })}
@@ -38,7 +38,7 @@ const OptionNodeType = ({data}: OptionNodeTypeProps) => {
                 type="source"
                 position={Position.Bottom}
                 id={`option-${data.option.id}-source`}
-                style={{ top: -5, bottom: 'auto', background: 'var(--color-dark)', height: '10px', width: '10px' }}
+                style={{ top: 'auto', bottom: -5, background: 'var(--color-dark)', height: '10px', width: '10px' }}
             />
         </div>
     );

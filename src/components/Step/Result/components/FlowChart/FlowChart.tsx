@@ -72,7 +72,7 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
                 id: `winner-${item.id}`,
                 type: 'winner',
                 data: item,
-                position: {x: winnerXPosition, y: 1000},
+                position: {x: winnerXPosition, y: 800},
                 targetPosition: Position.Top
             }
         });
