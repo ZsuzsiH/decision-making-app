@@ -17,9 +17,7 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
 
     const [nodes, setNodes] = useState<Node[]>([]);
     const [edges, setEdges] = useState<Edge[]>([]);
-    const [propertyNodeIds, setPropertyNodeIds] = useState<string[]>([]);
-    const [optionNodeIds, setOptionNodeIds] = useState<string[]>([]);
-    const [winnerNodeIds, setWinnerNodeIds] = useState<string[]>([]);
+    const [nodeIds, setNodeIds] = useState<{property: string[], option: string[], winner: string[]}>();
 
     const nodeTypes = useMemo(() => ({
         property: PropertyNodeType,
@@ -39,11 +37,6 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
                 sourcePosition: Position.Bottom
             }
         });
-        setPropertyNodeIds(() => propertyNodes.map(item => item.id));
-        setNodes(prevArray => [...prevArray, ...propertyNodes]);
-    }, [properties])
-
-    useEffect(() => {
         let optionXPosition = 0;
         const optionNodes = normalisedData.map((item) => {
             optionXPosition = optionXPosition + 240;
@@ -60,11 +53,6 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
                 sourcePosition: Position.Bottom
             }
         });
-        setOptionNodeIds(() => optionNodes.map(item => item.id));
-        setNodes((prev) => [...prev, ...optionNodes])
-    }, [summary, normalisedData])
-
-    useEffect(() => {
         let winnerXPosition = 0;
         const winnerNodes = winner.map((item) => {
             winnerXPosition = winnerXPosition + 240;
@@ -72,17 +60,25 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
                 id: `winner-${item.id}`,
                 type: 'winner',
                 data: item,
-                position: {x: winnerXPosition, y: 1000},
+                position: {x: winnerXPosition, y: 800},
                 targetPosition: Position.Top
             }
         });
-        setWinnerNodeIds(() => winnerNodes.map(item => item.id));
-        setNodes((prev) => [...prev, ...winnerNodes])
-    }, [winner])
+
+        const ids = {
+            property: propertyNodes.map(item => item.id),
+            option: optionNodes.map(item => item.id),
+            winner: winnerNodes.map(item => item.id)
+        }
+
+        setNodeIds(() => ids);
+        setNodes(prevArray => [...prevArray, ...propertyNodes, ...optionNodes, ...winnerNodes]);
+    }, [winner, summary, properties, normalisedData])
 
     useEffect(() => {
-        const propertyToOptionsEdges = propertyNodeIds.map(propertyId => {
-            return optionNodeIds.map(optionId => {
+        if (!nodeIds) return;
+        const propertyToOptionsEdges = nodeIds.property.map(propertyId => {
+            return nodeIds.option.map(optionId => {
                 return {
                     id: `${propertyId}-${optionId}-target`,
                     source: propertyId,
@@ -94,11 +90,9 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
             })
         }).flat();
         setEdges(prevArray => [...prevArray, ...propertyToOptionsEdges.flat()]);
-    }, [propertyNodeIds, optionNodeIds])
 
-    useEffect(() => {
-        const optionsToWinnersEdges = optionNodeIds.map(optionId => {
-            return winnerNodeIds.map(winnerId => {
+        const optionsToWinnersEdges = nodeIds.option.map(optionId => {
+            return nodeIds.winner.map(winnerId => {
                 return {
                     id: `${optionId}-${winnerId}-source`,
                     source: optionId,
@@ -110,7 +104,7 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
             })
         }).flat()
         setEdges(prevArray => [...prevArray, ...optionsToWinnersEdges.flat()]);
-    }, [optionNodeIds, winnerNodeIds])
+    }, [nodeIds])
 
     return (
         <ReactFlowProvider>
