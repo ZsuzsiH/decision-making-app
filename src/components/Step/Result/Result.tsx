@@ -1,6 +1,8 @@
 import {useAppSelector} from "../../../store/store";
 import {useEffect, useState} from "react";
 import {IOption, IOptionSummary, IProperty} from "../../../store/user/userTypes";
+import FlowChart from "./components/FlowChart/FlowChart";
+import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
 const Result = () => {
 
@@ -10,7 +12,7 @@ const Result = () => {
     const [normalisedData, setNormalisedData] = useState<IOption[]>();
     const [weightedData, setWeightedData] = useState<IOption[]>();
     const [summary, setSummary] = useState<IOptionSummary[]>();
-    const [winner, setWinner] = useState<IOptionSummary>();
+    const [winner, setWinner] = useState<IOptionSummary[]>();
 
     useEffect(() => {
         /*
@@ -31,7 +33,7 @@ const Result = () => {
         /*
             Setting the beneficial (max) and non-beneficial (min) attributes for each property
          */
-        // return;
+
         if (!flow) return;
         const options = [...flow.options.map(option => option.values)];
         const boundaries = flow.properties.reduce((acc: {[key:string]: {}}, cur) => {
@@ -63,6 +65,7 @@ const Result = () => {
                 values: Object.assign({}, ...updatedOptions)
             };
         })
+        console.log('data', data)
         setNormalisedData(() => data);
     }, [flow, attributes]);
 
@@ -113,15 +116,19 @@ const Result = () => {
          */
         if (!summary) return;
         const max = Math.max.apply(Math, summary.map((option) =>  option.valueSum ));
-        const winner = summary.find(item => item.valueSum === max);
+        const winner = summary.filter(item => item.valueSum === max);
         setWinner(() => winner);
     }, [summary])
 
+    if (!flow?.properties || !summary || !winner || !normalisedData) {
+        return (
+            <CircularProgress />
+        )
+    }
+
     return (
-        <div>
-            1. sliders section /editable/
-            <br/>
-            2. react flow with options and properties
+        <div style={{width: '1000px', height: '1000px'}}>
+            <FlowChart properties={flow.properties} normalisedData={normalisedData} summary={summary} winner={winner}/>
         </div>
     )
 }
