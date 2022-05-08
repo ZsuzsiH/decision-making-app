@@ -9,15 +9,6 @@
   flex-wrap: wrap;
 }
 
-.title {
-  font-size: 3em;
-  color: var(--color-dark);
-  padding: 0 0 20px;
-  @media only screen and (max-width: $breakpoint-large) {
-    text-align: center;
-  }
-}
-
 .subtitle {
   font-size: 2em;
   color: var(--color-dark);
@@ -48,18 +39,6 @@
   > input {
     padding: 0;
   }
-}
-
-.addPropertyButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.05);
-  border-radius: 20px;
-  height: 300px;
-  width: 300px;
-  padding: 20px;
-  background-color: var(--color-primary);
 }
 
 .propertyList {

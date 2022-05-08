@@ -1,12 +1,17 @@
-.propertyCard {
+.optionCard {
   display: flex;
   gap: 10px;
   flex-direction: column;
   justify-content: flex-start;
   box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.05);
   border-radius: 20px;
-  height: 300px;
+  height: auto;
   width: 300px;
   background-color: var(--color-light);
   padding: 20px;
+}
+
+.toggleButton {
+  padding: 10px;
+  height: 35px;
 }

@@ -1,5 +1,6 @@
 import styles from './Property.module.scss';
-import {Button, Slider, Stack, TextField} from "@mui/material";
+import sharedStyles from '../../../../../styles/shared.module.scss';
+import {Slider, Stack, TextField} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import Checkbox from '@mui/material/Checkbox';
 import SaveIcon from '@mui/icons-material/Save';
@@ -20,6 +21,8 @@ const Property = ({property, onSave}: PropertyProps) => {
     const [saved, setSaved] = useState(false);
 
     useEffect(() => {
+        // TODO validations
+
         const updated = {
             id: property.id,
             name: propertyName,
@@ -33,10 +36,11 @@ const Property = ({property, onSave}: PropertyProps) => {
     return (
         <div className={styles.propertyCard}>
             <div>
-                <div className={styles.text}>Criteria name</div>
+                <div className={sharedStyles.text}>Criteria name</div>
                 <TextField
-                    InputProps={{className: styles.customInput}}
+                    InputProps={{className: sharedStyles.customInput}}
                     value={propertyName}
+                    className={sharedStyles.customField}
                     variant={'standard'}
                     disabled={saved}
                     color={'secondary'}
@@ -45,31 +49,31 @@ const Property = ({property, onSave}: PropertyProps) => {
             </div>
             <Stack spacing={2} direction="column" >
                 <div className={styles.text}>Criteria importance</div>
-                <Slider disabled={saved} className={styles.slider} defaultValue={0} value={propertyImportance} onChange={(e, value) => setPropertyImportance(() => value as number)} />
+                <Slider disabled={saved} className={sharedStyles.slider} defaultValue={0} value={propertyImportance} onChange={(e, value) => setPropertyImportance(() => value as number)} />
             </Stack>
             <div>
-                <div className={styles.text}>This criteria is:</div>
-                <div className={styles.checkbox}>
+                <div className={sharedStyles.text}>This criteria is:</div>
+                <div className={sharedStyles.checkbox}>
                     <Checkbox
                         disabled={saved}
                         checked={propertyInverted}
                         onChange={() => setPropertyInverted(true)}
                     />the lower the better</div>
-                <div className={styles.checkbox}>
+                <div className={sharedStyles.checkbox}>
                     <Checkbox
                         disabled={saved}
                         checked={!propertyInverted}
                         onChange={() => setPropertyInverted(false)}
                     /> the higher the better</div>
             </div>
-            <div className={styles.control}>
+            <div className={sharedStyles.control}>
                 { saved ?
                     <IconButton onClick={() => setSaved(() => false)}>
-                        <EditIcon color={'primary'} className={styles.controlIcon}/>
+                        <EditIcon color={'primary'} className={sharedStyles.controlIcon}/>
                     </IconButton>
                     :
                     <IconButton disabled={!propertyName} onClick={() => setSaved(() => true)}>
-                        <SaveIcon color={'primary'} className={styles.controlIcon}/>
+                        <SaveIcon color={'primary'} className={sharedStyles.controlIcon}/>
                     </IconButton>
                 }
             </div>

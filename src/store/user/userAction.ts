@@ -15,7 +15,7 @@ export const startDecisionFlow = (name: string) => (dispatch: AppDispatch): void
     })
 }
 
-export const saveDecisionFlow = (flow: INewFlow) => (dispatch: AppDispatch): void => {
+export const saveDecisionFlow = (flow: Partial<INewFlow>) => (dispatch: AppDispatch): void => {
     dispatch({
         type: SAVE_FLOW,
         payload: flow

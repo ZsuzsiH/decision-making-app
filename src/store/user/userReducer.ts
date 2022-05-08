@@ -19,7 +19,8 @@ const userReducer = createReducer(initialState, {
             ...state,
             flow: {
                 name: action.payload,
-                properties: []
+                properties: [],
+                options: []
             }
         };
     },
