@@ -84,13 +84,15 @@ const Option = ({option, onSave}: PropertyProps) => {
                             </div>
                             {inputType[name] === 'number' ?
                                 <TextField
-                                    InputProps={{className: sharedStyles.customInput}}
-                                    value={value}
-                                    variant={'standard'}
+                                    value={value||''}
+                                    type="number"
                                     disabled={saved}
-                                    color={'secondary'}
                                     onFocus={(event) => event.target.select()}
-                                    onChange={(e) => setValues(name, {[name]: parseInt(e.target.value, 10)})}
+                                    InputProps={{className: sharedStyles.customInput}}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    onChange={(e) => setValues(name, {[name]: e.target.value})}
                                 /> :
                                 <Slider disabled={saved} className={sharedStyles.slider} defaultValue={0} value={value}
                                         onChange={(e, value) => setValues(name, {[name]: value as number})}
