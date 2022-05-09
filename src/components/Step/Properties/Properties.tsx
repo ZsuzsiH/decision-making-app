@@ -73,12 +73,12 @@ const Properties = () => {
             </div>
             <CustomMotionDiv className={styles.form}>
                 <div className={styles.subtitle}>What will you name this decision flow?</div>
-                <div>
+                <form onSubmit={handleSubmit}>
                     <TextField
                         InputProps={{
                             className: styles.customInput,
                             endAdornment: (
-                                <IconButton className={sharedStyles.iconButton} onClick={handleSubmit}>
+                                <IconButton className={sharedStyles.iconButton} type="submit">
                                     <ArrowCircleRightIcon className={styles.fieldIcon}/>
                                 </IconButton>
                             )
@@ -90,7 +90,7 @@ const Properties = () => {
                         error={!!errors.name}
                     />
                     <div className={sharedStyles.error}>{errors.name}</div>
-                </div>
+                </form>
             </CustomMotionDiv>
             {flow?.name && <CustomMotionDiv>
                 <div className={styles.subtitle}>Now add some criteria</div>
