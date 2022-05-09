@@ -1,23 +1,28 @@
-import styles from './PropertyEdit.module.scss';
+import styles from './Property.module.scss';
 import sharedStyles from '../../../../../styles/shared.module.scss';
 import {Slider, Stack, TextField} from "@mui/material";
 import React, {ChangeEvent, useState} from "react";
 import Checkbox from '@mui/material/Checkbox';
 import SaveIcon from '@mui/icons-material/Save';
+import EditIcon from '@mui/icons-material/Edit';
 import {IProperty} from "../../../../../store/user/userTypes";
 import IconButton from "@mui/material/IconButton";
 import useValidation from '../../../../../hooks/useValidation';
 
 interface PropertyProps {
+    property: IProperty;
     onSave: (property: IProperty) => void;
+    saved: boolean;
+    onEdit?: (id: number) => void
 }
 
-const PropertyEdit = ({onSave}: PropertyProps) => {
+const Property = ({property, onSave, saved, onEdit}: PropertyProps) => {
 
     const initialFormState = {
-        name: '',
-        weight: 0,
-        inverted: false
+        id: property.id,
+        name: property.name || '',
+        weight: property.weight || 0,
+        inverted: property.inverted || false
     }
 
     const {validateName, validateNumber} = useValidation();
@@ -50,6 +55,7 @@ const PropertyEdit = ({onSave}: PropertyProps) => {
         e.preventDefault();
         if (validateFields(data)) return;
         const updated = {
+            id: property.id,
             name: data.name,
             weight: data.weight,
             inverted: data.inverted
@@ -58,13 +64,14 @@ const PropertyEdit = ({onSave}: PropertyProps) => {
     }
 
     return (
-        <div className={styles.propertyCard} onBlur={handleSubmit}>
+        <div className={styles.propertyCard}>
             <div>
                 <div className={sharedStyles.text}>Criteria name</div>
                 <TextField
                     InputProps={{className: sharedStyles.customInput}}
                     value={data.name}
                     className={sharedStyles.customField}
+                    disabled={saved}
                     name='name'
                     color={'secondary'}
                     onChange={handleFieldChange}
@@ -74,29 +81,37 @@ const PropertyEdit = ({onSave}: PropertyProps) => {
             </div>
             <Stack spacing={2} direction="column" >
                 <div className={styles.text}>Criteria importance</div>
-                <Slider className={sharedStyles.slider} name='weight' defaultValue={0} value={data.weight} onChange={handleSliderChange} />
+                <Slider disabled={saved} className={sharedStyles.slider} name='weight' defaultValue={0} value={data.weight} onChange={handleSliderChange} />
                 <div className={sharedStyles.error}>{errors.weight}</div>
             </Stack>
             <div>
                 <div className={sharedStyles.text}>This criteria is:</div>
                 <div className={sharedStyles.checkbox}>
                     <Checkbox
+                        disabled={saved}
                         checked={data.inverted}
                         onChange={() => handleCheckbox(true)}
                     />the lower the better</div>
                 <div className={sharedStyles.checkbox}>
                     <Checkbox
+                        disabled={saved}
                         checked={!data.inverted}
                         onChange={() => handleCheckbox(false)}
                     /> the higher the better</div>
             </div>
             <div className={sharedStyles.control}>
-                <IconButton type="submit" onClick={handleSubmit}>
-                    <SaveIcon color={'primary'} className={sharedStyles.controlIcon}/>
-                </IconButton>
+                { saved ?
+                    <IconButton type="button" onClick={() => onEdit && onEdit(property.id)}>
+                        <EditIcon color={'primary'} className={sharedStyles.controlIcon}/>
+                    </IconButton>
+                    :
+                    <IconButton type="submit" onClick={handleSubmit}>
+                        <SaveIcon color={'primary'} className={sharedStyles.controlIcon}/>
+                    </IconButton>
+                }
             </div>
         </div>
     )
 }
 
-export default PropertyEdit;
+export default Property;

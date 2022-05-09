@@ -20,6 +20,7 @@ const Properties = () => {
 
     const [properties, setProperties] = useState<IProperty[]>([]);
     const [addNew, setAddNew] = useState<boolean>(false);
+    const [editProperty, setEditProperty] = useState<number>();
     const [name, setName] = useState<string>();
 
     const setFlowName = () => {
@@ -40,8 +41,7 @@ const Properties = () => {
         else updatedProperties.push(property);
 
         setAddNew(() => false);
-        setProperties(() => (updatedProperties));
-        if (!name) return;
+        setEditProperty(() => undefined);
         dispatch(saveDecisionFlow({name, properties: updatedProperties}));
     }
     const proceedToNextStep = () => {
@@ -61,7 +61,7 @@ const Properties = () => {
                                 <ArrowCircleRightIcon className={styles.fieldIcon} onClick={setFlowName}/>
                             )
                         }}
-                        value={name}
+                        value={name||''}
                         variant="standard"
                         color={'secondary'}
                         onChange={(e) => setName(() => e.target.value)}
@@ -76,12 +76,16 @@ const Properties = () => {
                             key={index}
                             property={property}
                             onSave={updateProperties}
+                            saved={editProperty !== property.id}
+                            onEdit={(id) => setEditProperty(() => id)}
                         />
                     ))}
                     {addNew && <Property
                         property={{id: properties.length, name: '', weight: 0, inverted: false}}
                         onSave={updateProperties}
-                    />}
+                        saved={false}
+                    />
+                    }
                     <CustomMotionDiv className={sharedStyles.addButton}>
                         <AddCircleIcon className={styles.addIcon} onClick={() => setAddNew(true)}/>
                     </CustomMotionDiv>
