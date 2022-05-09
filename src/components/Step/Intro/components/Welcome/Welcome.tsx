@@ -41,10 +41,10 @@ const Welcome = () => {
         <CustomMotionDiv className={styles.welcomePage}>
             <div>Welcome!</div>
             <div>What is your name?</div>
-            <div className={styles.inputContainer}>
+            <form className={styles.inputContainer} onSubmit={handleSubmit}>
                 <TextField
                     InputProps={{
-                        endAdornment: <IconButton className={sharedStyles.iconButton} onClick={handleSubmit}>
+                        endAdornment: <IconButton className={sharedStyles.iconButton} type="submit">
                             <ArrowCircleRightIcon className={sharedStyles.icon}/>
                         </IconButton>,
                         className: styles.customInput
@@ -57,7 +57,7 @@ const Welcome = () => {
                     error={!!errors.name}
                     label={errors.name}
                 />
-            </div>
+            </form>
         </CustomMotionDiv>
     )
 }
