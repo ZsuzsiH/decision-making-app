@@ -2,6 +2,7 @@ export default function useValidation() {
 
     function validateName(name: string): string|undefined {
         if (name.trim() === "") return 'Name is required';
+        if (name.length > 20) return 'Name is too long';
         if (/^[a-zA-ZÀ-ÖÙ-öù-ÿĀ-žḀ-ỿ\-\s]*$/.test(name)) return;
 
         return 'Invalid name';

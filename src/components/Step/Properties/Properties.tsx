@@ -114,8 +114,7 @@ const Properties = () => {
                         <AddCircleIcon className={styles.addIcon} onClick={() => setAddNew(true)}/>
                     </CustomMotionDiv>
                 </div>
-
-                </CustomMotionDiv>}
+            </CustomMotionDiv>}
 
             {flow && flow.properties?.length >= 2 &&
                 <CustomMotionDiv duration={2}>
