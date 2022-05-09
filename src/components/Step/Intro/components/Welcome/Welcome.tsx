@@ -25,12 +25,11 @@ const Welcome = () => {
             <div className={styles.inputContainer}>
                 <TextField
                     InputProps={{
-                        ...name && {
-                            endAdornment: <IconButton className={sharedStyles.iconButton} onClick={saveName}>
-                                <ArrowCircleRightIcon className={sharedStyles.icon}/>
-                            </IconButton>
-                        },
-                        className: styles.customInput}}
+                        endAdornment: <IconButton className={sharedStyles.iconButton} onClick={saveName}>
+                            <ArrowCircleRightIcon className={sharedStyles.icon}/>
+                        </IconButton>,
+                        className: styles.customInput
+                    }}
                     className={styles.customField}
                     variant="standard"
                     color={'secondary'}

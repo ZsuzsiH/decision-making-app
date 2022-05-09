@@ -28,7 +28,7 @@ const ShortExplanation = ({name}: IntroPRops) => {
                 <div className={styles.paragraph}>Are you ready?</div>
                 <div className={styles.control}>
                     <IconButton className={sharedStyles.iconButton} onClick={proceedToNextStep}>
-                        Yes, let's do it <ArrowCircleRightIcon className={sharedStyles.icon}/>
+                        <div className={sharedStyles.text}>Let's do it</div><ArrowCircleRightIcon className={sharedStyles.icon}/>
                     </IconButton>
                 </div>
             </CustomMotionDiv>
