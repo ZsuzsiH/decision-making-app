@@ -2,9 +2,15 @@
 
 .iconButton {
   padding: 0 !important;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0) !important;
+    transform: scale(1.1);
+    color: var(--color-action);
+  }
 }
 
 .icon {
+  margin: 5px;
   width: 40px !important;
   height: 40px !important;
 }
