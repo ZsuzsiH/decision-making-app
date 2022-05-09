@@ -8,7 +8,6 @@ import {IOption, IValue} from "../../../store/user/userTypes";
 import Option from "./Option/Option";
 import {saveDecisionFlow} from "../../../store/user/userAction";
 import {useDispatch} from "react-redux";
-import {Button} from "@mui/material";
 import {setStep} from "../../../store/app/appAction";
 import IconButton from "@mui/material/IconButton";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
@@ -21,6 +20,7 @@ const Options = () => {
     const [options, setOptions] = useState<IOption[]>([]);
     const [properties, setProperties] = useState<IValue>();
     const [addNew, setAddNew] = useState<boolean>(false);
+    const [editOption, setEditOption] = useState<number>();
 
     useEffect(() => {
         if (!flow) return;
@@ -40,7 +40,7 @@ const Options = () => {
         else updatedOptions.push(option);
 
         setAddNew(() => false);
-        setOptions(() => (updatedOptions));
+        setEditOption(() => undefined);
         if (!flow?.name) return;
         dispatch(saveDecisionFlow({...flow, options: updatedOptions}));
     }
@@ -61,11 +61,14 @@ const Options = () => {
                             key={index}
                             option={option}
                             onSave={updateOptions}
+                            saved={editOption !== option.id}
+                            onEdit={(id) => setEditOption(() => id)}
                         />
                     ))}
                     {addNew && properties && <Option
                         option={{id: options.length, name: '', values: properties}}
                         onSave={updateOptions}
+                        saved={false}
                     />}
                     <CustomMotionDiv className={sharedStyles.addButton}>
                         <AddCircleIcon className={styles.addIcon} onClick={() => setAddNew(true)}/>

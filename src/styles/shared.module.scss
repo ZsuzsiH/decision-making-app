@@ -42,8 +42,6 @@
 }
 
 .customInput {
-  width: 100%;
-  font-size: 1.5em !important;
   color: var(--color-dark) !important;
   font-family: 'IndieFlower', sans-serif !important;
 }
@@ -80,6 +78,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-top: auto;
 
   > p {
     font-size: 0.7em;
@@ -88,4 +87,9 @@
 
 .controlIcon {
   cursor: pointer;
+}
+
+.error {
+  margin-top: 0 !important;
+  color: #d32f2f;
 }

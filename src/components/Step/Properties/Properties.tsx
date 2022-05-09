@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import styles from "./Properties.module.scss";
 import sharedStyles from "../../../styles/shared.module.scss";
 import CustomMotionDiv from "../../CustomMotionDiv/CustomMotionDiv";
@@ -12,27 +12,44 @@ import Property from "./components/Property/Property";
 import {IProperty} from "../../../store/user/userTypes";
 import {setStep} from "../../../store/app/appAction";
 import IconButton from "@mui/material/IconButton";
+import useValidation from "../../../hooks/useValidation";
 
 const Properties = () => {
 
     const dispatch = useDispatch();
 
     const flow = useAppSelector((state) => state.user.flow);
+    const {validateName} = useValidation();
+
+    const initialFormState = {name: flow?.name || ''};
 
     const [properties, setProperties] = useState<IProperty[]>([]);
     const [addNew, setAddNew] = useState<boolean>(false);
-    const [name, setName] = useState<string>();
+    const [editProperty, setEditProperty] = useState<number>();
+    const [data, setData] = useState<{name: string}>(initialFormState);
+    const [errors, setError] = useState<{[key:string]: string}>({});
 
-    const setFlowName = () => {
-        if (!name) return;
-        dispatch(startDecisionFlow(name));
+    const handleFieldChange: React.ChangeEventHandler<HTMLInputElement> = (e: ChangeEvent): void => {
+        const target = e.target as HTMLInputElement;
+        setData((prev) => ({...prev, [target.name]: target.value}));
     }
 
     useEffect(() => {
         if (!flow) return;
-        setName(() => flow.name);
         setProperties(() => flow.properties);
     }, [flow])
+
+    const validateFields = (fields: {name: string}): boolean => {
+        const errors = {name: validateName(fields.name) || ''}
+        setError(() => errors)
+        return !!errors.name;
+    }
+
+    const handleSubmit = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        if (validateFields(data)) return;
+        dispatch(startDecisionFlow(data.name));
+    }
 
     const updateProperties = (property: IProperty) => {
         const updatedProperties = [...properties];
@@ -41,9 +58,8 @@ const Properties = () => {
         else updatedProperties.push(property);
 
         setAddNew(() => false);
-        setProperties(() => (updatedProperties));
-        if (!name) return;
-        dispatch(saveDecisionFlow({name, properties: updatedProperties}));
+        setEditProperty(() => undefined);
+        dispatch(saveDecisionFlow({name: data.name, properties: updatedProperties}));
     }
     const proceedToNextStep = () => {
         dispatch(setStep(2))
@@ -56,41 +72,48 @@ const Properties = () => {
                 changes.
             </div>
             <CustomMotionDiv className={styles.form}>
-                    <div className={styles.subtitle}>What will you name this decision flow?</div>
-                    <div>
-                        <TextField
-                            InputProps={{
-                                className: styles.customInput,
-                                endAdornment: (
-                                    <IconButton className={sharedStyles.iconButton} onClick={setFlowName}>
-                                        <ArrowCircleRightIcon className={styles.fieldIcon}/>
-                                    </IconButton>
-                                )
-                            }}
-                            value={name}
-                            variant="standard"
-                            onChange={(e) => setName(() => e.target.value)}
-                        />
-                    </div>
-                </CustomMotionDiv>
+                <div className={styles.subtitle}>What will you name this decision flow?</div>
+                <div>
+                    <TextField
+                        InputProps={{
+                            className: styles.customInput,
+                            endAdornment: (
+                                <IconButton className={sharedStyles.iconButton} onClick={handleSubmit}>
+                                    <ArrowCircleRightIcon className={styles.fieldIcon}/>
+                                </IconButton>
+                            )
+                        }}
+                        value={data.name||''}
+                        name='name'
+                        variant="standard"
+                        onChange={handleFieldChange}
+                        error={!!errors.name}
+                    />
+                    <div className={sharedStyles.error}>{errors.name}</div>
+                </div>
+            </CustomMotionDiv>
             {flow?.name && <CustomMotionDiv>
-                    <div className={styles.subtitle}>Now add some criteria</div>
-                    <div className={styles.propertyList}>
-                        {properties?.length !== 0 && properties.map((property, index) => (
-                            <Property
-                                key={index}
-                                property={property}
-                                onSave={updateProperties}
-                            />
-                        ))}
-                        {addNew && <Property
-                            property={{id: properties.length, name: '', weight: 0, inverted: false}}
+                <div className={styles.subtitle}>Now add some criteria</div>
+                <div className={styles.propertyList}>
+                    {properties?.length !== 0 && properties.map((property, index) => (
+                        <Property
+                            key={index}
+                            property={property}
                             onSave={updateProperties}
-                        />}
-                        <CustomMotionDiv className={sharedStyles.addButton}>
-                            <AddCircleIcon className={styles.addIcon} onClick={() => setAddNew(true)}/>
-                        </CustomMotionDiv>
-                    </div>
+                            saved={editProperty !== property.id}
+                            onEdit={(id) => setEditProperty(() => id)}
+                        />
+                    ))}
+                    {addNew && <Property
+                        property={{id: properties.length, name: '', weight: 0, inverted: false}}
+                        onSave={updateProperties}
+                        saved={false}
+                    />
+                    }
+                    <CustomMotionDiv className={sharedStyles.addButton}>
+                        <AddCircleIcon className={styles.addIcon} onClick={() => setAddNew(true)}/>
+                    </CustomMotionDiv>
+                </div>
 
                 </CustomMotionDiv>}
 
