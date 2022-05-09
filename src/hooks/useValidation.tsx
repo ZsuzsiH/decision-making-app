@@ -8,7 +8,7 @@ export default function useValidation() {
     }
 
     function validateNumber(number: number): string|undefined {
-        if (/^[1-9.]+$/.test(number.toString())) return;
+        if (/^(?![0.]+$)\d+(\.\d{1,2})?$/.test(number.toString())) return;
         if (isNaN(number)) return 'Not a number';
 
         return 'Invalid number';

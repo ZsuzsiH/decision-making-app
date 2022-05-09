@@ -42,10 +42,10 @@ const Property = ({property, onSave, saved, onEdit}: PropertyProps) => {
         setData((prev) => ({...prev, inverted}))
     }
 
-    const validateFields = (fields: IProperty): boolean => {
+    const validateFields = (): boolean => {
         const errors = {
-            name: validateName(fields.name) || '',
-            weight: validateNumber(fields.weight) || ''
+            name: validateName(data.name) || '',
+            weight: validateNumber(data.weight) || ''
         }
         setError(() => errors)
         return !!errors.name || !!errors.weight;
@@ -53,7 +53,7 @@ const Property = ({property, onSave, saved, onEdit}: PropertyProps) => {
 
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        if (validateFields(data)) return;
+        if (validateFields()) return;
         const updated = {
             id: property.id,
             name: data.name,

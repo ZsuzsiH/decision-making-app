@@ -1,38 +1,55 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import styles from "./Properties.module.scss";
 import sharedStyles from "../../../styles/shared.module.scss";
 import CustomMotionDiv from "../../CustomMotionDiv/CustomMotionDiv";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import {Button, TextField} from "@mui/material";
+import {TextField} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {saveDecisionFlow, startDecisionFlow} from "../../../store/user/userAction";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import {useAppSelector} from "../../../store/store";
 import Property from "./components/Property/Property";
-import { IProperty } from "../../../store/user/userTypes";
-import { setStep } from "../../../store/app/appAction";
+import {IProperty} from "../../../store/user/userTypes";
+import {setStep} from "../../../store/app/appAction";
+import IconButton from "@mui/material/IconButton";
+import useValidation from "../../../hooks/useValidation";
 
 const Properties = () => {
 
     const dispatch = useDispatch();
 
     const flow = useAppSelector((state) => state.user.flow);
+    const {validateName} = useValidation();
+
+    const initialFormState = {name: flow?.name || ''};
 
     const [properties, setProperties] = useState<IProperty[]>([]);
     const [addNew, setAddNew] = useState<boolean>(false);
     const [editProperty, setEditProperty] = useState<number>();
-    const [name, setName] = useState<string>();
+    const [data, setData] = useState<{name: string}>(initialFormState);
+    const [errors, setError] = useState<{[key:string]: string}>({});
 
-    const setFlowName = () => {
-        if (!name) return;
-        dispatch(startDecisionFlow(name));
+    const handleFieldChange: React.ChangeEventHandler<HTMLInputElement> = (e: ChangeEvent): void => {
+        const target = e.target as HTMLInputElement;
+        setData((prev) => ({...prev, [target.name]: target.value}));
     }
 
     useEffect(() => {
         if (!flow) return;
-        setName(() => flow.name);
         setProperties(() => flow.properties);
     }, [flow])
+
+    const validateFields = (fields: {name: string}): boolean => {
+        const errors = {name: validateName(fields.name) || ''}
+        setError(() => errors)
+        return !!errors.name;
+    }
+
+    const handleSubmit = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        if (validateFields(data)) return;
+        dispatch(startDecisionFlow(data.name));
+    }
 
     const updateProperties = (property: IProperty) => {
         const updatedProperties = [...properties];
@@ -42,15 +59,18 @@ const Properties = () => {
 
         setAddNew(() => false);
         setEditProperty(() => undefined);
-        dispatch(saveDecisionFlow({name, properties: updatedProperties}));
+        dispatch(saveDecisionFlow({name: data.name, properties: updatedProperties}));
     }
     const proceedToNextStep = () => {
         dispatch(setStep(2))
     }
 
-    return(
+    return (
         <CustomMotionDiv className={sharedStyles.page}>
-            <div className={sharedStyles.title}>Now let's set some criteria. Don't worry about it too much, you can always come back to make some changes.</div>
+            <div className={sharedStyles.title}>Now let's set some criteria.</div>
+            <div className={styles.subtitle}>Don't worry about it too much, you can always come back to make some
+                changes.
+            </div>
             <CustomMotionDiv className={styles.form}>
                 <div className={styles.subtitle}>What will you name this decision flow?</div>
                 <div>
@@ -58,14 +78,18 @@ const Properties = () => {
                         InputProps={{
                             className: styles.customInput,
                             endAdornment: (
-                                <ArrowCircleRightIcon className={styles.fieldIcon} onClick={setFlowName}/>
+                                <IconButton className={sharedStyles.iconButton} onClick={handleSubmit}>
+                                    <ArrowCircleRightIcon className={styles.fieldIcon}/>
+                                </IconButton>
                             )
                         }}
-                        value={name||''}
+                        value={data.name||''}
+                        name='name'
                         variant="standard"
-                        color={'secondary'}
-                        onChange={(e) => setName(() => e.target.value)}
+                        onChange={handleFieldChange}
+                        error={!!errors.name}
                     />
+                    <div className={sharedStyles.error}>{errors.name}</div>
                 </div>
             </CustomMotionDiv>
             {flow?.name && <CustomMotionDiv>
@@ -91,12 +115,18 @@ const Properties = () => {
                     </CustomMotionDiv>
                 </div>
 
-            </CustomMotionDiv>}
-            {flow && flow.properties?.length >= 2 && <CustomMotionDiv className={styles.control}>
-                <Button size={'large'} className={styles.button} onClick={proceedToNextStep} variant="contained">
-                    Next
-                </Button>
-            </CustomMotionDiv>}
+                </CustomMotionDiv>}
+
+            {flow && flow.properties?.length >= 2 &&
+                <CustomMotionDiv duration={2}>
+                    <div className={styles.control}>
+                        <IconButton className={sharedStyles.iconButton} onClick={proceedToNextStep}>
+                            <div className={sharedStyles.text}>Next step</div>
+                            <ArrowCircleRightIcon className={sharedStyles.icon}/>
+                        </IconButton>
+                    </div>
+                </CustomMotionDiv>
+            }
         </CustomMotionDiv>
     )
 }
