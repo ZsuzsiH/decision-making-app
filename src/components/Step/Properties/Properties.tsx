@@ -5,11 +5,11 @@ import CustomMotionDiv from "../../CustomMotionDiv/CustomMotionDiv";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {TextField} from "@mui/material";
 import {useDispatch} from "react-redux";
-import {saveDecisionFlow, startDecisionFlow} from "../../../store/user/userAction";
+import {saveDecisionFlow, startDecisionFlow} from "../../../store/flow/flowAction";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import {useAppSelector} from "../../../store/store";
 import Property from "./components/Property/Property";
-import {IProperty} from "../../../store/user/userTypes";
+import {IProperty} from "../../../store/flow/flowTypes";
 import {setStep} from "../../../store/app/appAction";
 import IconButton from "@mui/material/IconButton";
 import useValidation from "../../../hooks/useValidation";
@@ -18,7 +18,7 @@ const Properties = () => {
 
     const dispatch = useDispatch();
 
-    const flow = useAppSelector((state) => state.user.flow);
+    const flow = useAppSelector((state) => state.flow.current);
     const {validateName} = useValidation();
 
     const initialFormState = {name: flow?.name || ''};

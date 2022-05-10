@@ -1,5 +1,5 @@
 import React from 'react';
-import {IProperty} from "../../../../../store/user/userTypes";
+import {IProperty} from "../../../../../store/flow/flowTypes";
 import styles from './NodeType.module.scss';
 import {Slider} from "@mui/material";
 import sharedStyles from "../../../../../styles/shared.module.scss";

@@ -5,7 +5,7 @@ import React, {ChangeEvent, useState} from "react";
 import Checkbox from '@mui/material/Checkbox';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
-import {IProperty} from "../../../../../store/user/userTypes";
+import {IProperty} from "../../../../../store/flow/flowTypes";
 import IconButton from "@mui/material/IconButton";
 import useValidation from '../../../../../hooks/useValidation';
 

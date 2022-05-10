@@ -1,6 +1,6 @@
 import ReactFlow, {Edge, Node, Position, ReactFlowProvider} from 'react-flow-renderer';
 import React, {useEffect, useMemo, useState} from 'react';
-import {IOption, IOptionSummary, IProperty} from "../../../../../store/user/userTypes";
+import {IOption, IOptionSummary, IProperty} from "../../../../../store/flow/flowTypes";
 import PropertyNodeType from "../NodeTypes/PropertyNodeType";
 import styles from './FlowChart.module.scss';
 import OptionNodeType from "../NodeTypes/OptionNodeType";

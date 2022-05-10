@@ -4,9 +4,9 @@ import styles from "../Properties/Properties.module.scss";
 import React, {useEffect, useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {useAppSelector} from "../../../store/store";
-import {IOption, IValue} from "../../../store/user/userTypes";
+import {IOption, IValue} from "../../../store/flow/flowTypes";
 import Option from "./Option/Option";
-import {saveDecisionFlow} from "../../../store/user/userAction";
+import {saveDecisionFlow} from "../../../store/flow/flowAction";
 import {useDispatch} from "react-redux";
 import {setStep} from "../../../store/app/appAction";
 import IconButton from "@mui/material/IconButton";
@@ -15,7 +15,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 const Options = () => {
 
     const dispatch = useDispatch();
-    const flow = useAppSelector((state) => state.user.flow);
+    const flow = useAppSelector((state) => state.flow.current);
 
     const [options, setOptions] = useState<IOption[]>([]);
     const [properties, setProperties] = useState<IValue>();
