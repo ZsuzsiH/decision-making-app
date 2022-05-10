@@ -3,12 +3,13 @@ import styles from './Home.module.scss';
 import Intro from "../Step/Intro/Intro";
 import Properties from "../Step/Properties/Properties";
 import Options from "../Step/Options/Options";
-import {useAppSelector} from "../../store/store";
 import Result from "../Step/Result/Result";
 
-const Home = () => {
+interface HomeProps {
+    stepNumber: number
+}
 
-    const step = useAppSelector(state => state.app.step);
+const Home = ({stepNumber}: HomeProps) => {
 
     const components = {
         'Intro': Intro,
@@ -21,7 +22,7 @@ const Home = () => {
         <div className={styles.home}>
             {Object.keys(components).map((item: string, index: number) => {
                 const Component = components[item];
-                if (index === step) return <Component key={index}/>
+                if (index === stepNumber) return <Component key={index}/>
             })}
         </div>
     )

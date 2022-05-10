@@ -4,7 +4,6 @@ export const RESET_FLOW = "RESET_FLOW";
 
 export interface IFlowState {
     current?: ICurrentFlow;
-    saved: ICurrentFlow[];
 }
 
 export interface ICurrentFlow {

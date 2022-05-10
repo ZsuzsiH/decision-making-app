@@ -26,8 +26,8 @@ const Properties = () => {
     const [properties, setProperties] = useState<IProperty[]>([]);
     const [addNew, setAddNew] = useState<boolean>(false);
     const [editProperty, setEditProperty] = useState<number>();
-    const [data, setData] = useState<{name: string}>(initialFormState);
-    const [errors, setError] = useState<{[key:string]: string}>({});
+    const [data, setData] = useState<{ name: string }>(initialFormState);
+    const [errors, setError] = useState<{ [key: string]: string }>({});
 
     const handleFieldChange: React.ChangeEventHandler<HTMLInputElement> = (e: ChangeEvent): void => {
         const target = e.target as HTMLInputElement;
@@ -39,7 +39,7 @@ const Properties = () => {
         setProperties(() => flow.properties);
     }, [flow])
 
-    const validateFields = (fields: {name: string}): boolean => {
+    const validateFields = (fields: { name: string }): boolean => {
         const errors = {name: validateName(fields.name) || ''}
         setError(() => errors)
         return !!errors.name;
@@ -59,7 +59,29 @@ const Properties = () => {
 
         setAddNew(() => false);
         setEditProperty(() => undefined);
-        dispatch(saveDecisionFlow({name: data.name, properties: updatedProperties}));
+
+        /*
+            Updating flow with new property and assigning
+            new empty value for each option value
+         */
+        dispatch(saveDecisionFlow({
+            name: data.name,
+            properties: updatedProperties,
+            ...flow?.options && {
+                options: [
+                    ...flow.options.map(item => {
+                        return {
+                            ...item,
+                            values: {
+                                ...item.values,
+                                [property.name]: 0
+                            }
+                        }
+                    })
+                ]
+            }
+        }));
+
     }
     const proceedToNextStep = () => {
         dispatch(setStep(2))
@@ -83,7 +105,7 @@ const Properties = () => {
                                 </IconButton>
                             )
                         }}
-                        value={data.name||''}
+                        value={data.name || ''}
                         name='name'
                         variant="standard"
                         onChange={handleFieldChange}
