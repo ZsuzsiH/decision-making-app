@@ -1,5 +1,5 @@
 import React from 'react';
-import {IOptionSummary} from "../../../../../store/user/userTypes";
+import {IOptionSummary} from "../../../../../store/flow/flowTypes";
 import styles from './NodeType.module.scss';
 import sharedStyles from "../../../../../styles/shared.module.scss";
 import {Handle, Position} from "react-flow-renderer";

@@ -5,7 +5,7 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from "@mui/material/IconButton";
-import {IOption} from "../../../../store/user/userTypes";
+import {IOption} from "../../../../store/flow/flowTypes";
 import useValidation from "../../../../hooks/useValidation";
 
 interface PropertyProps {

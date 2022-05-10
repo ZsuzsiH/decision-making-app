@@ -1,12 +1,12 @@
 import {useAppSelector} from "../../../store/store";
 import {useEffect, useState} from "react";
-import {IOption, IOptionSummary, IProperty} from "../../../store/user/userTypes";
+import {IOption, IOptionSummary, IProperty} from "../../../store/flow/flowTypes";
 import FlowChart from "./components/FlowChart/FlowChart";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
 const Result = () => {
 
-    const flow = useAppSelector((state) => state.user.flow);
+    const flow = useAppSelector((state) => state.flow.current);
     const [normWeightProps, setNormWeightProps] = useState<IProperty[]>();
     const [attributes, setAttributes] = useState<{ [key:string]: {min?: number, max?: number }}>();
     const [normalisedData, setNormalisedData] = useState<IOption[]>();

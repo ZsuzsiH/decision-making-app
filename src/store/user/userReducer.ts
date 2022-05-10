@@ -1,10 +1,9 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {IUserState, SET_NAME, START_FLOW, SAVE_FLOW} from "./userTypes";
+import {IUserState, SET_NAME} from "./userTypes";
+import {PURGE} from "redux-persist";
 
 const initialState: IUserState = {
-    name: undefined,
-    flow: undefined,
-    decisionFlows: []
+    name: undefined
 }
 
 const userReducer = createReducer(initialState, {
@@ -14,22 +13,7 @@ const userReducer = createReducer(initialState, {
             name: action.payload
         };
     },
-    [START_FLOW]: (state, action) => {
-        return {
-            ...state,
-            flow: {
-                name: action.payload,
-                properties: [],
-                options: []
-            }
-        };
-    },
-    [SAVE_FLOW]: (state, action) => {
-        return {
-            ...state,
-            flow: action.payload
-        };
-    },
+    [PURGE]: () => initialState
 })
 
 export default userReducer;
