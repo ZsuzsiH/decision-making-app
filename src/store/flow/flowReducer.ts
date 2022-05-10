@@ -3,8 +3,7 @@ import {START_FLOW, SAVE_FLOW, RESET_FLOW, IFlowState} from "./flowTypes";
 import {PURGE} from "redux-persist";
 
 const initialState: IFlowState = {
-    current: undefined,
-    saved: []
+    current: undefined
 }
 
 const flowReducer = createReducer(initialState, {
@@ -21,18 +20,13 @@ const flowReducer = createReducer(initialState, {
     [SAVE_FLOW]: (state, action) => {
         return {
             ...state,
-            saved: {
-                ...state.saved,
+            current: {
+                ...state.current,
                 ...action.payload
             }
         };
     },
-    [RESET_FLOW]: (state) => {
-        return {
-            ...state,
-            current: undefined
-        }
-    },
+    [RESET_FLOW]: () => initialState,
     [PURGE]: () => initialState
 })
 

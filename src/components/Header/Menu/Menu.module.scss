@@ -1,0 +1,32 @@
+.dropdown {
+  display: flex;
+  align-self: center;
+}
+
+.menu {
+  background: var(--color-light);
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  display: flex;
+  align-items: center;
+  border-radius: 40px;
+}
+
+.userName {
+  display: flex;
+  align-items: center;
+  padding: 0 10px 0 0;
+}
+
+.menuContainer {
+  margin: 5px auto 0;
+  display: flex;
+}
+
+.menuList {
+  background: var(--color-light) !important;
+}
+
+.menuItem {
+  font-family: 'IconSolataVariable', sans-serif  !important;
+}
