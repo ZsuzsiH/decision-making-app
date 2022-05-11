@@ -146,11 +146,11 @@ const Option = ({option, onSave, saved, onEdit}: PropertyProps) => {
             ))}
             <div className={sharedStyles.control}>
                 { saved ?
-                    <IconButton onClick={() => onEdit && onEdit(option.id)}>
+                    <IconButton id="option-edit" onClick={() => onEdit && onEdit(option.id)}>
                         <EditIcon color={'primary'} className={styles.controlIcon}/>
                     </IconButton>
                     :
-                    <IconButton onClick={handleSubmit}>
+                    <IconButton id="option-save" onClick={handleSubmit}>
                         <SaveIcon color={'primary'} className={styles.controlIcon}/>
                     </IconButton>
                 }

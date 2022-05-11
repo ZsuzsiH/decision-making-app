@@ -10,7 +10,7 @@ interface PropertyNodeTypeProps {
 
 const WinnerNodeType = ({data}: PropertyNodeTypeProps) => {
     return (
-        <div className={styles.propertyNode}>
+        <div className={styles.propertyNode} id="winner-node">
             <Handle
                 type="target"
                 position={Position.Top}

@@ -3,6 +3,9 @@ import {useEffect, useState} from "react";
 import {IOption, IOptionSummary, IProperty} from "../../../store/flow/flowTypes";
 import FlowChart from "./components/FlowChart/FlowChart";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
+import React from "react";
+import sharedStyles from "../../../styles/shared.module.scss";
+import CustomMotionDiv from "../../CustomMotionDiv/CustomMotionDiv";
 
 const Result = () => {
 
@@ -126,9 +129,12 @@ const Result = () => {
     }
 
     return (
-        <div style={{width: '1500px', height: '1500px'}}>
-            <FlowChart properties={flow.properties} normalisedData={normalisedData} summary={summary} winner={winner}/>
-        </div>
+        <CustomMotionDiv className={sharedStyles.page}>
+            <div className={sharedStyles.title}>Your results</div>
+            <div style={{width: '1500px', height: '1500px'}}>
+                <FlowChart properties={flow.properties} normalisedData={normalisedData} summary={summary} winner={winner}/>
+            </div>
+        </CustomMotionDiv>
     )
 }
 
