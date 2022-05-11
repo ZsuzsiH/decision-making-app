@@ -17,10 +17,9 @@ import useValidation from "../../../hooks/useValidation";
 const Properties = () => {
 
     const dispatch = useDispatch();
-
-    const flow = useAppSelector((state) => state.flow.current);
     const {validateName} = useValidation();
 
+    const flow = useAppSelector((state) => state.flow.current);
     const initialFormState = {name: flow?.name || ''};
 
     const [properties, setProperties] = useState<IProperty[]>([]);
@@ -51,6 +50,41 @@ const Properties = () => {
         dispatch(startDecisionFlow(data.name));
     }
 
+    const getUpdatedValues = (values: {[key:string]: number}, property: IProperty) => {
+        const keys = Object.keys(values);
+        const propertyExist = !!keys[property.id];
+
+        if (propertyExist) {
+            /*
+                Update property as specific index but keep the original value
+             */
+            const valueCopy = {...values};
+            const doubleUpdatedValues = Object.entries(valueCopy).map(([key, value], index) => {
+                if (index === property.id) {
+                    const newKeyValue = {
+                        [property.name]: value
+                    }
+                    delete valueCopy[key];
+                    return {
+                        ...newKeyValue
+                    }
+                    /*
+                        Return property that isn't being updated
+                     */
+                } else return {[key]: value};
+            });
+            return Object.assign({}, ...doubleUpdatedValues);
+        } else {
+            /*
+                Add new property with default 0 value
+             */
+            return {
+                ...values,
+                [property.name]: 0
+            }
+        }
+    }
+
     const updateProperties = (property: IProperty) => {
         const updatedProperties = [...properties];
         const index = updatedProperties.findIndex(item => item.id === property?.id);
@@ -72,10 +106,7 @@ const Properties = () => {
                     ...flow.options.map(item => {
                         return {
                             ...item,
-                            values: {
-                                ...item.values,
-                                [property.name]: 0
-                            }
+                            values: getUpdatedValues(item.values, property)
                         }
                     })
                 ]
