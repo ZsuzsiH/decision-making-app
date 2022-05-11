@@ -19,7 +19,7 @@ const WinnerNodeType = ({data}: PropertyNodeTypeProps) => {
             />
             <div className={sharedStyles.text}>Winner</div>
             <hr/>
-            <div className={sharedStyles.text}>{data.name}</div>
+            <div className={styles.score}>{data.name}</div>
         </div>
     );
 }

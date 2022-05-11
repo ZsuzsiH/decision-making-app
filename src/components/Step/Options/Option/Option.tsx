@@ -46,7 +46,6 @@ const Option = ({option, onSave, saved, onEdit}: PropertyProps) => {
         setData((prev) => ({...prev, values: {...prev.values, [key]: value as number}}));
     }
 
-
     useEffect(() => {
         /*
             Setting initial type value for each property
