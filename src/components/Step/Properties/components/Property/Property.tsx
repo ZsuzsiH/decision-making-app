@@ -101,11 +101,11 @@ const Property = ({property, onSave, saved, onEdit}: PropertyProps) => {
             </div>
             <div className={sharedStyles.control}>
                 { saved ?
-                    <IconButton type="button" onClick={() => onEdit && onEdit(property.id)}>
+                    <IconButton id="property-edit" type="button" onClick={() => onEdit && onEdit(property.id)}>
                         <EditIcon color={'primary'} className={sharedStyles.controlIcon}/>
                     </IconButton>
                     :
-                    <IconButton type="submit" onClick={handleSubmit}>
+                    <IconButton id="property-save" type="submit" onClick={handleSubmit}>
                         <SaveIcon color={'primary'} className={sharedStyles.controlIcon}/>
                     </IconButton>
                 }
