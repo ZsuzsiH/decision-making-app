@@ -52,7 +52,7 @@ const Options = () => {
     return (
         <CustomMotionDiv className={sharedStyles.page}>
             <div className={sharedStyles.title}>Now let's set the options to choose from.</div>
-            <div className={styles.subtitle}>Give a value to each criteria in the option.
+            <div className={sharedStyles.subtitle}>Give a value to each criteria in the option.
             </div>
             {flow?.name && <CustomMotionDiv>
                 <div className={styles.propertyList}>

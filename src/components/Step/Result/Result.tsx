@@ -5,6 +5,7 @@ import FlowChart from "./components/FlowChart/FlowChart";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import React from "react";
 import sharedStyles from "../../../styles/shared.module.scss";
+import styles from "./Result.module.scss";
 import CustomMotionDiv from "../../CustomMotionDiv/CustomMotionDiv";
 
 const Result = () => {
@@ -123,14 +124,12 @@ const Result = () => {
     }, [summary])
 
     if (!flow?.properties || !summary || !winner || !normalisedData) {
-        return (
-            <CircularProgress />
-        )
+        return <CircularProgress />;
     }
 
     return (
         <CustomMotionDiv className={sharedStyles.page}>
-            <div className={sharedStyles.title}>Your results</div>
+            <div className={styles.title}>Your results</div>
             <div style={{width: '1500px', height: '1500px'}}>
                 <FlowChart properties={flow.properties} normalisedData={normalisedData} summary={summary} winner={winner}/>
             </div>
@@ -138,4 +137,4 @@ const Result = () => {
     )
 }
 
-export default Result
+export default Result;

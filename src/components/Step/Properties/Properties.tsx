@@ -121,11 +121,11 @@ const Properties = () => {
     return (
         <CustomMotionDiv className={sharedStyles.page}>
             <div className={sharedStyles.title}>Now let's set some criteria.</div>
-            <div className={styles.subtitle}>Don't worry about it too much, you can always come back to make some
+            <div className={sharedStyles.subtitle}>Don't worry about it too much, you can always come back to make some
                 changes.
             </div>
             <CustomMotionDiv className={styles.form}>
-                <div className={styles.subtitle}>What will you name this decision flow?</div>
+                <div className={sharedStyles.subtitle}>What will you name this decision flow?</div>
                 <form onSubmit={handleSubmit}>
                     <TextField
                         InputProps={{
@@ -146,7 +146,7 @@ const Properties = () => {
                 </form>
             </CustomMotionDiv>
             {flow?.name && <CustomMotionDiv>
-                <div className={styles.subtitle}>Now add some criteria</div>
+                <div className={sharedStyles.subtitle}>Now add some criteria</div>
                 <div className={styles.propertyList}>
                     {properties?.length !== 0 && properties.map((property, index) => (
                         <Property

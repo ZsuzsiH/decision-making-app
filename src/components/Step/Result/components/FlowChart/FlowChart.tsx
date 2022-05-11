@@ -2,7 +2,6 @@ import ReactFlow, {Edge, Node, Position, ReactFlowProvider} from 'react-flow-ren
 import React, {useEffect, useMemo, useState} from 'react';
 import {IOption, IOptionSummary, IProperty} from "../../../../../store/flow/flowTypes";
 import PropertyNodeType from "../NodeTypes/PropertyNodeType";
-import styles from './FlowChart.module.scss';
 import OptionNodeType from "../NodeTypes/OptionNodeType";
 import WinnerNodeType from "../NodeTypes/WinnerNodeType";
 
@@ -26,7 +25,7 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
     }), []);
 
     useEffect(() => {
-        let propertyXPosition = 0;
+        let propertyXPosition = -220;
         const propertyNodes = properties.map((item) => {
             propertyXPosition = propertyXPosition + 240;
             return {
@@ -37,7 +36,7 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
                 sourcePosition: Position.Bottom
             }
         });
-        let optionXPosition = 0;
+        let optionXPosition = -220;
         const optionNodes = normalisedData.map((item) => {
             optionXPosition = optionXPosition + 240;
             const data = {
@@ -53,14 +52,14 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
                 sourcePosition: Position.Bottom
             }
         });
-        let winnerXPosition = 0;
+        let winnerXPosition = -220;
         const winnerNodes = winner.map((item) => {
             winnerXPosition = winnerXPosition + 240;
             return {
                 id: `winner-${item.id}`,
                 type: 'winner',
                 data: item,
-                position: {x: winnerXPosition, y: 800},
+                position: {x: winnerXPosition, y: 700},
                 targetPosition: Position.Top
             }
         });
@@ -109,7 +108,6 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
     return (
         <ReactFlowProvider>
             <ReactFlow
-                className={styles.flowChart}
                 nodeTypes={nodeTypes}
                 nodes={nodes}
                 edges={edges}
