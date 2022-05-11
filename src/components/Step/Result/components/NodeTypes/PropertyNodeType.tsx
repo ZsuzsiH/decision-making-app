@@ -11,7 +11,7 @@ interface PropertyNodeTypeProps {
 
 const PropertyNodeType = ({data}: PropertyNodeTypeProps) => {
     return (
-        <div className={styles.propertyNode} id={`property-${data.name}-node`}>
+        <div className={styles.propertyNode} id={`property-${data.id}-node`}>
             <div className={sharedStyles.text}>{data.name}</div>
             <hr/>
             <div className={sharedStyles.text}>Weighting: {data.weight}%</div>

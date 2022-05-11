@@ -1,0 +1,14 @@
+@import "../../../styles/breakpoints.module";
+
+.title {
+  font-size: 3em;
+  color: var(--color-dark);
+  padding: 0 0 40px;
+  text-align: left;
+
+  @media only screen and (max-width: $breakpoint-large) {
+    font-size: 2em;
+    padding: 0 0 20px;
+  }
+
+}

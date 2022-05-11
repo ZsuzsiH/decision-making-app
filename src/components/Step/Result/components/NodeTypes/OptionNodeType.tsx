@@ -14,7 +14,7 @@ interface OptionNodeTypeProps {
 
 const OptionNodeType = ({data}: OptionNodeTypeProps) => {
     return (
-        <div className={styles.optionNode} id={`option-${data.option.name}-node`}>
+        <div className={styles.optionNode} id={`option-${data.option.id}-node`}>
             <Handle
                 type="target"
                 position={Position.Top}
