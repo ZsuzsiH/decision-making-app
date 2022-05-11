@@ -27,13 +27,13 @@ const OptionNodeType = ({data}: OptionNodeTypeProps) => {
                 return (
                     <React.Fragment key={index}>
                         <div className={sharedStyles.text}>{key}: {Math.round(value*100)}%</div>
-                        <Slider className={sharedStyles.slider} disabled={true} defaultValue={0} value={value*100} />
+                        <Slider className={sharedStyles.slider} disabled={true} defaultValue={0} value={value*100}/>
                     </React.Fragment>
                 )
             })}
             <hr/>
             <div className={sharedStyles.text}>Score</div>
-            <div className={sharedStyles.text}>{Math.round(data.finalScore*100)}</div>
+            <div className={styles.score}>{Math.round(data.finalScore*100)}</div>
             <Handle
                 type="source"
                 position={Position.Bottom}

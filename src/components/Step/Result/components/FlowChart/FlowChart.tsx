@@ -71,7 +71,7 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
         }
 
         setNodeIds(() => ids);
-        setNodes(prevArray => [...prevArray, ...propertyNodes, ...optionNodes, ...winnerNodes]);
+        setNodes(() => [...propertyNodes, ...optionNodes, ...winnerNodes]);
     }, [winner, summary, properties, normalisedData])
 
     useEffect(() => {
@@ -88,7 +88,6 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
                 }
             })
         }).flat();
-        setEdges(prevArray => [...prevArray, ...propertyToOptionsEdges.flat()]);
 
         const optionsToWinnersEdges = nodeIds.option.map(optionId => {
             return nodeIds.winner.map(winnerId => {
@@ -102,7 +101,8 @@ const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps
                 }
             })
         }).flat()
-        setEdges(prevArray => [...prevArray, ...optionsToWinnersEdges.flat()]);
+
+        setEdges(() => [...propertyToOptionsEdges.flat(), ...optionsToWinnersEdges.flat()])
     }, [nodeIds])
 
     return (
