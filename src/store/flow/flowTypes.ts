@@ -23,6 +23,7 @@ export interface IOption {
     id: number;
     name: string;
     values: IValue;
+    score?: number;
 }
 
 export interface IOptionSummary extends IOption {

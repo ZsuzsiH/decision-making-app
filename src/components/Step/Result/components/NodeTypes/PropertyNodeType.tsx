@@ -49,6 +49,7 @@ const PropertyNodeType = ({data}: PropertyNodeTypeProps) => {
                 onChange={handleSliderChange}
                 onChangeCommitted={handleSliderCommitted}
                 valueLabelDisplay="auto"
+                disabled={true}
                 value={property.weight}
             />
             <Handle
