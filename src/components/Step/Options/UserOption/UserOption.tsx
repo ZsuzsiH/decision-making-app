@@ -1,16 +1,16 @@
-import styles from './Option.module.scss';
+import styles from './UserOption.module.scss';
 import sharedStyles from '../../../../styles/shared.module.scss';
 import {Slider, Stack, TextField, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from "@mui/material/IconButton";
-import {IOption} from "../../../../store/flow/flowTypes";
+import {Option} from "../../../../store/flow/flowTypes";
 import useValidation from "../../../../hooks/useValidation";
 
 interface PropertyProps {
-    option: IOption;
-    onSave: (option: IOption) => void;
+    option: Option;
+    onSave: (option: Option) => void;
     saved: boolean;
     onEdit?: (id: number) => void
 }
@@ -20,7 +20,7 @@ interface IOptionError {
     values?: {[key:string]: string}
 }
 
-const Option = ({option, onSave, saved, onEdit}: PropertyProps) => {
+const UserOption = ({option, onSave, saved, onEdit}: PropertyProps) => {
 
     const initialFormState = {
         id: option.id,
@@ -29,7 +29,7 @@ const Option = ({option, onSave, saved, onEdit}: PropertyProps) => {
     }
 
     const {validateName, validateNumber} = useValidation();
-    const [data, setData] = useState<IOption>(initialFormState);
+    const [data, setData] = useState<Option>(initialFormState);
     const [inputType, setInputType] = useState<{[key:string]:string}>();
     const [errors, setError] = useState<IOptionError>();
 
@@ -158,4 +158,4 @@ const Option = ({option, onSave, saved, onEdit}: PropertyProps) => {
     )
 }
 
-export default Option;
+export default UserOption;

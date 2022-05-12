@@ -9,7 +9,7 @@ import OptionNodeType from "../NodeTypes/OptionNodeType";
 import WinnerNodeType from "../NodeTypes/WinnerNodeType";
 import {getLayoutedElements} from "../../../../../utils/getLayoutedElements";
 import {useAppSelector} from "../../../../../store/store";
-import {IOption, IOptionSummary} from "../../../../../store/flow/flowTypes";
+import {Option, OptionSummary} from "../../../../../store/flow/flowTypes";
 import {winnerCalculation} from "../../../../../utils/calculations";
 import {getNodes} from "../../../../../utils/getNodes";
 import {getEdges} from "../../../../../utils/getEdges";
@@ -31,9 +31,9 @@ const FlowChart = () => {
     const flow = useAppSelector((state) => state.flow.current);
 
     const [result, setResult] = useState<{
-        normalisedData: IOption[],
-        summary: IOptionSummary[],
-        winner: IOptionSummary[]
+        normalisedData: Option[],
+        summary: OptionSummary[],
+        winner: OptionSummary[]
     }>()
 
     useEffect(() => {

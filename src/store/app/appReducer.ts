@@ -1,8 +1,8 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {IAppState, SET_STEP} from "./appTypes";
+import {AppState, SET_STEP} from "./appTypes";
 import {PURGE} from "redux-persist";
 
-const initialState: IAppState = {
+const initialState: AppState = {
     step: 0
 }
 

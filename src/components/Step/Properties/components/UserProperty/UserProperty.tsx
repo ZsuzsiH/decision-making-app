@@ -1,22 +1,22 @@
-import styles from './Property.module.scss';
+import styles from './UserProperty.module.scss';
 import sharedStyles from '../../../../../styles/shared.module.scss';
 import {Slider, Stack, TextField} from "@mui/material";
 import React, {ChangeEvent, useState} from "react";
 import Checkbox from '@mui/material/Checkbox';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
-import {IProperty} from "../../../../../store/flow/flowTypes";
+import {Property} from "../../../../../store/flow/flowTypes";
 import IconButton from "@mui/material/IconButton";
 import useValidation from '../../../../../hooks/useValidation';
 
 interface PropertyProps {
-    property: IProperty;
-    onSave: (property: IProperty) => void;
+    property: Property;
+    onSave: (property: Property) => void;
     saved: boolean;
     onEdit?: (id: number) => void
 }
 
-const Property = ({property, onSave, saved, onEdit}: PropertyProps) => {
+const UserProperty = ({property, onSave, saved, onEdit}: PropertyProps) => {
 
     const initialFormState = {
         id: property.id,
@@ -26,7 +26,7 @@ const Property = ({property, onSave, saved, onEdit}: PropertyProps) => {
     }
 
     const {validateName, validateNumber} = useValidation();
-    const [data, setData] = useState<IProperty>(initialFormState);
+    const [data, setData] = useState<Property>(initialFormState);
     const [errors, setError] = useState<{[key:string]: string}>({});
 
     const handleFieldChange: React.ChangeEventHandler<HTMLInputElement> = (e: ChangeEvent): void => {
@@ -114,4 +114,4 @@ const Property = ({property, onSave, saved, onEdit}: PropertyProps) => {
     )
 }
 
-export default Property;
+export default UserProperty;

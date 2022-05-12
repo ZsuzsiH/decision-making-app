@@ -1,5 +1,5 @@
-import { AppDispatch } from "../store";
-import {START_FLOW, SAVE_FLOW, ICurrentFlow} from "./flowTypes";
+import {AppDispatch} from "../store";
+import {START_FLOW, SAVE_FLOW, CurrentFlow} from "./flowTypes";
 
 export const startDecisionFlow = (name: string) => (dispatch: AppDispatch): void => {
     dispatch({
@@ -8,7 +8,7 @@ export const startDecisionFlow = (name: string) => (dispatch: AppDispatch): void
     })
 }
 
-export const saveDecisionFlow = (flow: Partial<ICurrentFlow>) => (dispatch: AppDispatch): void => {
+export const saveDecisionFlow = (flow: Partial<CurrentFlow>) => (dispatch: AppDispatch): void => {
     dispatch({
         type: SAVE_FLOW,
         payload: flow

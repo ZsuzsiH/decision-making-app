@@ -1,8 +1,8 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {START_FLOW, SAVE_FLOW, RESET_FLOW, IFlowState} from "./flowTypes";
+import {START_FLOW, SAVE_FLOW, RESET_FLOW, FlowState} from "./flowTypes";
 import {PURGE} from "redux-persist";
 
-const initialState: IFlowState = {
+const initialState: FlowState = {
     current: undefined
 }
 

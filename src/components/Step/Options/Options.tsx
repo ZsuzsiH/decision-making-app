@@ -4,8 +4,8 @@ import styles from "../Properties/Properties.module.scss";
 import React, {useEffect, useState} from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {useAppSelector} from "../../../store/store";
-import {IOption, IValue} from "../../../store/flow/flowTypes";
-import Option from "./Option/Option";
+import {Option, Value} from "../../../store/flow/flowTypes";
+import UserOption from "./UserOption/UserOption";
 import {saveDecisionFlow} from "../../../store/flow/flowAction";
 import {useDispatch} from "react-redux";
 import {setStep} from "../../../store/app/appAction";
@@ -17,8 +17,8 @@ const Options = () => {
     const dispatch = useDispatch();
     const flow = useAppSelector((state) => state.flow.current);
 
-    const [options, setOptions] = useState<IOption[]>([]);
-    const [properties, setProperties] = useState<IValue>();
+    const [options, setOptions] = useState<Option[]>([]);
+    const [properties, setProperties] = useState<Value>();
     const [addNew, setAddNew] = useState<boolean>(false);
     const [editOption, setEditOption] = useState<number>();
 
@@ -33,7 +33,7 @@ const Options = () => {
         setOptions(() => flow.options);
     }, [flow])
 
-    const updateOptions = (option: IOption) => {
+    const updateOptions = (option: Option) => {
         const updatedOptions = [...options];
         const index = updatedOptions.findIndex(item => item.id === option?.id);
         if (index !== -1) updatedOptions[index] = option;
@@ -57,7 +57,7 @@ const Options = () => {
             {flow?.name && <CustomMotionDiv>
                 <div className={styles.propertyList}>
                     {options?.length !== 0 && options.map((option, index) => (
-                        <Option
+                        <UserOption
                             key={index}
                             option={option}
                             onSave={updateOptions}
@@ -65,7 +65,7 @@ const Options = () => {
                             onEdit={(id) => setEditOption(() => id)}
                         />
                     ))}
-                    {addNew && properties && <Option
+                    {addNew && properties && <UserOption
                         option={{id: options.length, name: '', values: properties}}
                         onSave={updateOptions}
                         saved={false}
@@ -76,7 +76,7 @@ const Options = () => {
                 </div>
             </CustomMotionDiv>}
             {flow && flow.options?.length >= 2 &&
-                <CustomMotionDiv duration={2}>
+                <CustomMotionDiv>
                     <div className={styles.control}>
                         <IconButton className={sharedStyles.iconButton} onClick={proceedToNextStep}>
                             <div className={sharedStyles.text}>Show the results</div>

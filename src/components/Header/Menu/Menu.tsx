@@ -8,11 +8,11 @@ import {useDispatch} from "react-redux";
 import {Action} from "redux";
 import {SET_STEP} from "../../../store/app/appTypes";
 import {PURGE} from "redux-persist";
-import {IFlowState, RESET_FLOW} from "../../../store/flow/flowTypes";
+import {FlowState, RESET_FLOW} from "../../../store/flow/flowTypes";
 
 interface DropdownMenuProps {
     userName: string;
-    flow: IFlowState
+    flow: FlowState
 }
 
 const DropdownMenu = ({userName, flow}: DropdownMenuProps) => {
@@ -20,7 +20,7 @@ const DropdownMenu = ({userName, flow}: DropdownMenuProps) => {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [selectedIndex] = React.useState(1);
-    const open = Boolean(anchorEl);
+    const isOpen = Boolean(anchorEl);
 
     const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -71,10 +71,10 @@ const DropdownMenu = ({userName, flow}: DropdownMenuProps) => {
             >
                 <IconButton
                     className={styles.menuButton}
-                    onClick={handleClickListItem} aria-expanded={open ? 'true' : undefined} id="menu-button"
+                    onClick={handleClickListItem} aria-expanded={isOpen ? 'true' : undefined} id="menu-button"
                     size="small" color="primary" aria-label="add"
                 >
-                    {open ?
+                    {isOpen ?
                         <KeyboardArrowUpIcon color="primary"/> :
                         <KeyboardArrowDownIcon color="primary"/>
                     }
@@ -82,7 +82,7 @@ const DropdownMenu = ({userName, flow}: DropdownMenuProps) => {
             </List>
             <Menu
                 anchorEl={anchorEl}
-                open={open}
+                open={isOpen}
                 onClose={handleClose}
                 className={styles.menuContainer}
                 MenuListProps={{

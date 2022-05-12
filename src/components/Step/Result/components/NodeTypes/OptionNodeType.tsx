@@ -1,12 +1,12 @@
 import React from 'react';
-import {IOption} from "../../../../../store/flow/flowTypes";
+import {Option} from "../../../../../store/flow/flowTypes";
 import styles from './NodeType.module.scss';
 import {Slider} from "@mui/material";
 import sharedStyles from "../../../../../styles/shared.module.scss";
 import {Handle, Position} from "react-flow-renderer";
 
 interface OptionNodeTypeProps {
-    data: IOption;
+    data: Option;
 }
 
 const OptionNodeType = ({data}: OptionNodeTypeProps) => {

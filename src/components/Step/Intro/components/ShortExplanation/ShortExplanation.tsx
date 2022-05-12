@@ -7,11 +7,11 @@ import {useDispatch} from "react-redux";
 import {setStep} from "../../../../../store/app/appAction";
 import CustomMotionDiv from '../../../../CustomMotionDiv/CustomMotionDiv';
 
-interface IntroPRops {
+interface IntroProps {
     name: string;
 }
 
-const ShortExplanation = ({name}: IntroPRops) => {
+const ShortExplanation = ({name}: IntroProps) => {
 
     const dispatch = useDispatch();
 

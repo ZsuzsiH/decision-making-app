@@ -1,5 +1,5 @@
 export const SET_STEP = "SET_STEP"
 
-export interface IAppState {
+export interface AppState {
     step: number;
 }

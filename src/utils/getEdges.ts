@@ -1,4 +1,3 @@
-
 const type = 'smoothstep';
 
 export const getEdges = (source: string[], target: string[]) => {

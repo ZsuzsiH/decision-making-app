@@ -1,10 +1,10 @@
-import {ICurrentFlow, IOption, IOptionSummary, IProperty} from "../store/flow/flowTypes";
+import {CurrentFlow, Option, OptionSummary, Property} from "../store/flow/flowTypes";
 
 interface Attributes {
     [key: string]: { min?: number, max?: number }
 }
 
-export const winnerCalculation = (flow: ICurrentFlow) => {
+export const winnerCalculation = (flow: CurrentFlow) => {
 
     if (!flow) return;
 
@@ -13,7 +13,7 @@ export const winnerCalculation = (flow: ICurrentFlow) => {
      */
     let sum: number = 0;
     flow.properties.forEach(a => sum += a.weight);
-    const normalisedWeight: IProperty[] = flow.properties.map(item => {
+    const normalisedWeight: Property[] = flow.properties.map(item => {
         return {
             ...item,
             weight: (item.weight / sum)
@@ -35,7 +35,7 @@ export const winnerCalculation = (flow: ICurrentFlow) => {
         Data table normalisation
     */
     const attributeKeys = Object.keys(attributes);
-    const normalisedData: IOption[] = flow.options.map((item) => {
+    const normalisedData: Option[] = flow.options.map((item) => {
         const updatedOptions = attributeKeys.map(attribute => {
             const min = attributes[attribute].min;
             const max = attributes[attribute].max;
@@ -51,7 +51,7 @@ export const winnerCalculation = (flow: ICurrentFlow) => {
     /*
         Multiplying each parameter with their respective weight
     */
-    const weightedData: IOption[] = normalisedData.map((item) => {
+    const weightedData: Option[] = normalisedData.map((item) => {
         const updatedValues = Object.keys(item.values).map(key => {
             const prop = normalisedWeight.find((item) => item.name === key);
             if (!prop) return item.values;
@@ -69,7 +69,7 @@ export const winnerCalculation = (flow: ICurrentFlow) => {
     /*
        Sum all values for each option
     */
-    const summary: IOptionSummary[] = weightedData.map((item) => {
+    const summary: OptionSummary[] = weightedData.map((item) => {
         const sumValues = Object.values(item.values).reduce((a, b) => a + b);
         return {...item, valueSum: sumValues};
     })
@@ -78,7 +78,7 @@ export const winnerCalculation = (flow: ICurrentFlow) => {
         Find the winner
     */
     const maxScore = Math.max.apply(Math, summary.map((option) => option.valueSum));
-    const winner: IOptionSummary[] = summary.filter(item => item.valueSum === maxScore);
+    const winner: OptionSummary[] = summary.filter(item => item.valueSum === maxScore);
 
     return {normalisedData, summary, winner}
 }

@@ -2,34 +2,34 @@ export const START_FLOW = "START_FLOW";
 export const SAVE_FLOW = "SAVE_FLOW";
 export const RESET_FLOW = "RESET_FLOW";
 
-export interface IFlowState {
-    current?: ICurrentFlow;
+export interface FlowState {
+    current?: CurrentFlow;
 }
 
-export interface ICurrentFlow {
+export interface CurrentFlow {
     name: string;
-    properties: IProperty[];
-    options: IOption[]
+    properties: Property[];
+    options: Option[]
 }
 
-export interface IProperty {
+export interface Property {
     id: number;
     name: string;
     weight: number;
     inverted: boolean;
 }
 
-export interface IOption {
+export interface Option {
     id: number;
     name: string;
-    values: IValue;
+    values: Value;
     score?: number;
 }
 
-export interface IOptionSummary extends IOption {
+export interface OptionSummary extends Option {
     valueSum: number
 }
 
-export interface IValue {
+export interface Value {
     [key: string]: number;
 }
