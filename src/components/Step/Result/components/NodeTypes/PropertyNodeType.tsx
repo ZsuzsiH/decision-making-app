@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {IProperty} from "../../../../../store/flow/flowTypes";
+import {Property} from "../../../../../store/flow/flowTypes";
 import styles from './NodeType.module.scss';
 import {Slider} from "@mui/material";
 import sharedStyles from "../../../../../styles/shared.module.scss";
@@ -9,7 +9,7 @@ import {saveDecisionFlow} from "../../../../../store/flow/flowAction";
 import {useAppSelector} from "../../../../../store/store";
 
 interface PropertyNodeTypeProps {
-    data: IProperty
+    data: Property
 }
 
 const PropertyNodeType = ({data}: PropertyNodeTypeProps) => {
@@ -17,7 +17,7 @@ const PropertyNodeType = ({data}: PropertyNodeTypeProps) => {
     const dispatch = useDispatch();
     const flow = useAppSelector((state) => state.flow);
 
-    const [property, setProperty] = useState<IProperty>(data);
+    const [property, setProperty] = useState<Property>(data);
 
     const handleSliderChange = (e: Event, value: number|number[]) => {
         setProperty((prev) => ({...prev, weight: value as number}));

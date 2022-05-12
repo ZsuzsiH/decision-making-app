@@ -1,5 +1,5 @@
 import React from 'react';
-import {IOptionSummary} from "../../../../../store/flow/flowTypes";
+import {OptionSummary} from "../../../../../store/flow/flowTypes";
 import styles from './NodeType.module.scss';
 import {Slider} from "@mui/material";
 import sharedStyles from "../../../../../styles/shared.module.scss";
@@ -7,7 +7,7 @@ import {Handle, Position} from "react-flow-renderer";
 
 interface OptionNodeTypeProps {
     data: {
-        option: IOptionSummary;
+        option: OptionSummary;
         finalScore: number;
     };
 }

@@ -1,6 +1,6 @@
 import {useAppSelector} from "../../../store/store";
 import {useEffect, useState} from "react";
-import {IOption, IOptionSummary, IProperty} from "../../../store/flow/flowTypes";
+import {Option, OptionSummary, Property} from "../../../store/flow/flowTypes";
 import FlowChart from "./components/FlowChart/FlowChart";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import React from "react";
@@ -11,12 +11,12 @@ import CustomMotionDiv from "../../CustomMotionDiv/CustomMotionDiv";
 const Result = () => {
 
     const flow = useAppSelector((state) => state.flow.current);
-    const [normWeightProps, setNormWeightProps] = useState<IProperty[]>();
+    const [normWeightProps, setNormWeightProps] = useState<Property[]>();
     const [attributes, setAttributes] = useState<{ [key:string]: {min?: number, max?: number }}>();
-    const [normalisedData, setNormalisedData] = useState<IOption[]>();
-    const [weightedData, setWeightedData] = useState<IOption[]>();
-    const [summary, setSummary] = useState<IOptionSummary[]>();
-    const [winner, setWinner] = useState<IOptionSummary[]>();
+    const [normalisedData, setNormalisedData] = useState<Option[]>();
+    const [weightedData, setWeightedData] = useState<Option[]>();
+    const [summary, setSummary] = useState<OptionSummary[]>();
+    const [winner, setWinner] = useState<OptionSummary[]>();
 
     useEffect(() => {
         /*

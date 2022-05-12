@@ -1,15 +1,15 @@
 import ReactFlow, {Edge, Node, Position, ReactFlowProvider} from 'react-flow-renderer';
 import React, {useEffect, useMemo, useState} from 'react';
-import {IOption, IOptionSummary, IProperty} from "../../../../../store/flow/flowTypes";
+import {Option, OptionSummary, Property} from "../../../../../store/flow/flowTypes";
 import PropertyNodeType from "../NodeTypes/PropertyNodeType";
 import OptionNodeType from "../NodeTypes/OptionNodeType";
 import WinnerNodeType from "../NodeTypes/WinnerNodeType";
 
 interface FlowChartProps {
-    properties: IProperty[],
-    summary: IOptionSummary[],
-    normalisedData: IOption[],
-    winner: IOptionSummary[]
+    properties: Property[],
+    summary: OptionSummary[],
+    normalisedData: Option[],
+    winner: OptionSummary[]
 }
 
 const FlowChart = ({properties, summary, normalisedData, winner}: FlowChartProps) => {

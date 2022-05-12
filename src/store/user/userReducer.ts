@@ -1,8 +1,8 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {IUserState, SET_NAME} from "./userTypes";
+import {UserState, SET_NAME} from "./userTypes";
 import {PURGE} from "redux-persist";
 
-const initialState: IUserState = {
+const initialState: UserState = {
     name: undefined
 }
 

@@ -9,8 +9,7 @@ const Intro = () => {
 
     return(
         <div>
-            {!name && <Welcome/>}
-            {name && <ShortExplanation name={name}/>}
+            {name ? <ShortExplanation name={name}/> : <Welcome/>}
         </div>
     )
 }

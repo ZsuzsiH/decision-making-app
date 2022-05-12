@@ -1,11 +1,11 @@
 import React from 'react';
-import {IOptionSummary} from "../../../../../store/flow/flowTypes";
+import {OptionSummary} from "../../../../../store/flow/flowTypes";
 import styles from './NodeType.module.scss';
 import sharedStyles from "../../../../../styles/shared.module.scss";
 import {Handle, Position} from "react-flow-renderer";
 
 interface PropertyNodeTypeProps {
-    data: IOptionSummary
+    data: OptionSummary
 }
 
 const WinnerNodeType = ({data}: PropertyNodeTypeProps) => {

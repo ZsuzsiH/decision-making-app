@@ -8,8 +8,8 @@ import {useDispatch} from "react-redux";
 import {saveDecisionFlow, startDecisionFlow} from "../../../store/flow/flowAction";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import {useAppSelector} from "../../../store/store";
-import Property from "./components/Property/Property";
-import {IProperty} from "../../../store/flow/flowTypes";
+import UserProperty from "./components/UserProperty/UserProperty";
+import {Property} from "../../../store/flow/flowTypes";
 import {setStep} from "../../../store/app/appAction";
 import IconButton from "@mui/material/IconButton";
 import useValidation from "../../../hooks/useValidation";
@@ -22,7 +22,7 @@ const Properties = () => {
     const flow = useAppSelector((state) => state.flow.current);
     const initialFormState = {name: flow?.name || ''};
 
-    const [properties, setProperties] = useState<IProperty[]>([]);
+    const [properties, setProperties] = useState<Property[]>([]);
     const [addNew, setAddNew] = useState<boolean>(false);
     const [editProperty, setEditProperty] = useState<number>();
     const [data, setData] = useState<{ name: string }>(initialFormState);
@@ -50,7 +50,7 @@ const Properties = () => {
         dispatch(startDecisionFlow(data.name));
     }
 
-    const getUpdatedValues = (values: {[key:string]: number}, property: IProperty) => {
+    const getUpdatedValues = (values: {[key:string]: number}, property: Property) => {
         const keys = Object.keys(values);
         const propertyExist = !!keys[property.id];
 
@@ -85,7 +85,7 @@ const Properties = () => {
         }
     }
 
-    const updateProperties = (property: IProperty) => {
+    const updateProperties = (property: Property) => {
         const updatedProperties = [...properties];
         const index = updatedProperties.findIndex(item => item.id === property?.id);
         if (index !== -1) updatedProperties[index] = property;
@@ -149,7 +149,7 @@ const Properties = () => {
                 <div className={sharedStyles.subtitle}>Now add some criteria</div>
                 <div className={styles.propertyList}>
                     {properties?.length !== 0 && properties.map((property, index) => (
-                        <Property
+                        <UserProperty
                             key={index}
                             property={property}
                             onSave={updateProperties}
@@ -157,7 +157,7 @@ const Properties = () => {
                             onEdit={(id) => setEditProperty(() => id)}
                         />
                     ))}
-                    {addNew && <Property
+                    {addNew && <UserProperty
                         property={{id: properties.length, name: '', weight: 0, inverted: false}}
                         onSave={updateProperties}
                         saved={false}
@@ -170,7 +170,7 @@ const Properties = () => {
             </CustomMotionDiv>}
 
             {flow && flow.properties?.length >= 2 &&
-                <CustomMotionDiv duration={2}>
+                <CustomMotionDiv>
                     <div className={styles.control}>
                         <IconButton className={sharedStyles.iconButton} onClick={proceedToNextStep}>
                             <div className={sharedStyles.text}>Next step</div>
