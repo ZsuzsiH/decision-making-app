@@ -1,8 +1,7 @@
-import React, {useCallback, useEffect, useLayoutEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import ReactFlow, {
     ReactFlowProvider,
     Node,
-    applyNodeChanges,
     useNodesState, useEdgesState
 } from "react-flow-renderer";
 import PropertyNodeType from "../NodeTypes/PropertyNodeType";
