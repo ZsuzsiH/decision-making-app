@@ -88,10 +88,6 @@ const FlowChart = () => {
         }
     }, [nodes]);
 
-    useEffect(() => {
-        console.log('shouldLayout', shouldLayout)
-    }, [shouldLayout])
-
     return (
         <CustomMotionDiv className={sharedStyles.page}>
             <ReactFlowProvider>
