@@ -23,6 +23,7 @@ export interface Option {
     id: number;
     name: string;
     values: Value;
+    score?: number;
 }
 
 export interface OptionSummary extends Option {
